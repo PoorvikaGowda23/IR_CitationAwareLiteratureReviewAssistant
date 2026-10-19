@@ -1,0 +1,15 @@
+# Ignore raw data, outputs, secrets and caches
+.env
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+myenv/
+*.ipynb_checkpoints/
+.DS_Store

@@ -1,0 +1,17 @@
+pandas
+pyarrow
+numpy
+requests
+tqdm
+faiss-cpu
+rank_bm25
+scikit-learn
+torch
+transformers
+datasets
+adapters
+networkx
+python-louvain
+matplotlib
+joblib
+pytest
