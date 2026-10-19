@@ -108,7 +108,51 @@ def test_retrieve_contract_and_ablation(monkeypatch):
         k=6,
         weights={"alpha": 1.0, "beta": 0.0, "gamma": 0.0, "delta": 0.0},
         graph=G,
+        surface_contradictions=False,
     )
     returned_ids = [r["paper_id"] for r in results_pure_emb]
     expected_ids = [p for p, _ in fake_cands]
     assert returned_ids == expected_ids
+
+
+def test_surface_contradictions(monkeypatch):
+    fake_cands = [
+        ("p1", 0.95),
+        ("p2", 0.90),
+        ("p3", 0.85),
+    ]
+    monkeypatch.setattr("retrieval.stage1_candidates", lambda query, k: fake_cands)
+
+    G = nx.DiGraph()
+    for pid, _ in fake_cands:
+        G.add_node(pid, pagerank=0.1)
+
+    # p1 contradicts c_out (outgoing edge) with conf 0.85
+    G.add_edge("p1", "c_out", intent="contradiction", confidence=0.85)
+    # c_in contradicts p2 (incoming edge) with conf 0.75
+    G.add_edge("c_in", "p2", intent="contradiction", confidence=0.75)
+    # low confidence contradiction edge (should be ignored)
+    G.add_edge("p3", "c_low", intent="contradiction", confidence=0.40)
+
+    # 1. With surface_contradictions=True
+    results = retrieve("fake query", k=3, graph=G, surface_contradictions=True)
+    assert len(results) == 5  # 3 top-k + 2 surfaced contradictions
+    assert results[0]["flags"] == []
+    assert results[1]["flags"] == []
+    assert results[2]["flags"] == []
+
+    # Surfaced papers placed at rank 4 and 5
+    contra_items = results[3:]
+    assert len(contra_items) == 2
+    assert contra_items[0]["rank"] == 4
+    assert contra_items[0]["paper_id"] == "c_out"
+    assert contra_items[0]["flags"] == ["contradiction", "p1"]
+
+    assert contra_items[1]["rank"] == 5
+    assert contra_items[1]["paper_id"] == "c_in"
+    assert contra_items[1]["flags"] == ["contradiction", "p2"]
+
+    # 2. With surface_contradictions=False
+    results_no_contra = retrieve("fake query", k=3, graph=G, surface_contradictions=False)
+    assert len(results_no_contra) == 3
+

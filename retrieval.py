@@ -145,6 +145,17 @@ def compute_cocitation_with_anchors(
     return float(total_cocit)
 
 
+_STAGE1_CACHE: dict[tuple[str, int], list[tuple[str, float]]] = {}
+
+
+def get_stage1_candidates(query: str, k: int = config.STAGE1_K) -> list[tuple[str, float]]:
+    """Retrieve stage 1 candidates with in-memory query caching."""
+    key = (query, k)
+    if key not in _STAGE1_CACHE:
+        _STAGE1_CACHE[key] = stage1_candidates(query, k=k)
+    return _STAGE1_CACHE[key]
+
+
 # ── Shared Retrieval Interface ────────────────────────────────────────────────
 
 def retrieve(
@@ -153,6 +164,7 @@ def retrieve(
     weights: dict[str, float] | None = None,
     graph: nx.DiGraph | None = None,
     stage1_k: int = config.STAGE1_K,
+    surface_contradictions: bool = True,
 ) -> list[dict[str, Any]]:
     """
     Retrieve top-k papers using hybrid graph re-ranking over Stage 1 candidates.
@@ -168,6 +180,9 @@ def retrieve(
       4. Min-max normalize each signal inside candidate set only.
       5. final = ALPHA*emb + BETA*pagerank + GAMMA*proximity + DELTA*cocitation.
       6. Return contract format: [{'paper_id', 'score', 'rank', 'flags', 'components'}].
+      7. Contradiction surfacing: if surface_contradictions=True, inspect graph edges
+         for top 5 reranked papers; surface up to 2 papers labeled 'contradiction'
+         with confidence > 0.6 placed just after top-k.
 
     Args:
         query: Natural language query string.
@@ -175,12 +190,13 @@ def retrieve(
         weights: Optional dictionary overriding {'alpha', 'beta', 'gamma', 'delta'}.
         graph: Optional pre-loaded NetworkX DiGraph (loads graph.gpickle if None).
         stage1_k: Number of stage 1 candidates to fetch (default config.STAGE1_K).
+        surface_contradictions: If True, surface up to 2 contradictory papers after top-k.
 
     Returns:
         List of result dictionaries conforming to the retrieval contract.
     """
-    # 1. Stage 1 retrieval
-    candidates = stage1_candidates(query, k=stage1_k)
+    # 1. Stage 1 retrieval (with memoization cache)
+    candidates = get_stage1_candidates(query, k=stage1_k)
     if not candidates:
         return []
 
@@ -260,16 +276,78 @@ def retrieve(
     # Sort descending by final_score (break ties with raw embedding score)
     scored_items.sort(key=lambda x: (x["final_score"], x["raw_emb"]), reverse=True)
 
-    # 6. Format to project retrieval contract
+    # 6. Format top-k results
     results: list[dict[str, Any]] = []
-    for rank_idx, item in enumerate(scored_items[:k], start=1):
+    top_k_items = scored_items[:k]
+    for rank_idx, item in enumerate(top_k_items, start=1):
         results.append({
             "paper_id": item["paper_id"],
             "score": float(round(item["final_score"], 6)),
             "rank": rank_idx,
-            "flags": [],  # no contradiction surfacing yet
+            "flags": [],
             "components": item["components"],
         })
+
+    # 7. Contradiction Surfacing (Part 2)
+    if surface_contradictions and len(results) > 0:
+        top5_ids = [r["paper_id"] for r in results[:min(5, len(results))]]
+        existing_ids = set(r["paper_id"] for r in results)
+        cand_map = {item["paper_id"]: item for item in scored_items}
+        surfaced: list[dict[str, Any]] = []
+
+        for pid in top5_ids:
+            if pid not in G:
+                continue
+
+            # Check outgoing edges: pid -> v
+            for v in G.successors(pid):
+                edge_data = G[pid][v]
+                intent = str(edge_data.get("intent", "")).lower()
+                conf = float(edge_data.get("confidence", edge_data.get("intent_confidence", 1.0)))
+                if intent == "contradiction" and conf > 0.6:
+                    if v not in existing_ids and not any(s["paper_id"] == v for s in surfaced):
+                        surfaced.append({"paper_id": v, "contradicts_id": pid})
+                        if len(surfaced) >= 2:
+                            break
+            if len(surfaced) >= 2:
+                break
+
+            # Check incoming edges: u -> pid
+            for u in G.predecessors(pid):
+                edge_data = G[u][pid]
+                intent = str(edge_data.get("intent", "")).lower()
+                conf = float(edge_data.get("confidence", edge_data.get("intent_confidence", 1.0)))
+                if intent == "contradiction" and conf > 0.6:
+                    if u not in existing_ids and not any(s["paper_id"] == u for s in surfaced):
+                        surfaced.append({"paper_id": u, "contradicts_id": pid})
+                        if len(surfaced) >= 2:
+                            break
+            if len(surfaced) >= 2:
+                break
+
+        # Place surfaced contradiction papers directly after the top-k
+        for s in surfaced:
+            spid = s["paper_id"]
+            contradicted_id = s["contradicts_id"]
+            if spid in cand_map:
+                sp_score = cand_map[spid]["final_score"]
+                sp_comp = cand_map[spid]["components"]
+            else:
+                sp_score = 0.0
+                sp_comp = {
+                    "embedding": 0.0,
+                    "pagerank": float(G.nodes[spid].get("pagerank", 0.0)) if spid in G else 0.0,
+                    "proximity": 0.0,
+                    "cocitation": 0.0,
+                }
+
+            results.append({
+                "paper_id": spid,
+                "score": float(round(sp_score, 6)),
+                "rank": len(results) + 1,
+                "flags": ["contradiction", contradicted_id],
+                "components": sp_comp,
+            })
 
     return results
 
