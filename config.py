@@ -99,3 +99,11 @@ ALLOW_SURVEY_FALLBACK: bool = False
 # Semantic Scholar stores the first-version year of a survey, but its reference list comes from the latest revision.
 YEAR_TOLERANCE: int = 3
 
+# ── Retrieval Re-ranking Weights (Step 12) ───────────────────────────────────
+# Linear combination weights for hybrid graph re-ranking:
+# final = ALPHA*emb + BETA*pagerank + GAMMA*proximity + DELTA*cocitation
+ALPHA: float = 0.6  # embedding score weight
+BETA: float = 0.1   # graph PageRank weight
+GAMMA: float = 0.2  # anchor proximity weight
+DELTA: float = 0.1  # anchor co-citation weight
+
