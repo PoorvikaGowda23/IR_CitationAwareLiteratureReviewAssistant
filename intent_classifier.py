@@ -3,6 +3,7 @@ intent_classifier.py
 ---------------------
 Step 8  – TF-IDF + Logistic Regression (train locally, fast)
 Step 9  – SciBERT fine-tuning with a plain PyTorch loop (runs on Colab GPU)
+Step 10 – Apply fine-tuned SciBERT to edges.parquet -> edges_pred.parquet
 
 SciCite has three labels: background, method, result.
 
@@ -11,6 +12,8 @@ CLI usage:
     python intent_classifier.py --eval-only      # TF-IDF: eval saved model
     python intent_classifier.py --scibert        # SciBERT: fine-tune + eval
     python intent_classifier.py --scibert --eval-only  # SciBERT: eval checkpoint
+    python intent_classifier.py --apply --smoke  # Step 10: smoke mode on 200 edges
+    python intent_classifier.py --apply          # Step 10: full run on all edges
 """
 
 import json
@@ -30,8 +33,10 @@ from sklearn.metrics import (
 from config import DATA_DIR, RESULTS_DIR, SEED
 
 # Paths
-MODEL_PATH   = DATA_DIR / "tfidf_intent.joblib"
-METRICS_PATH = RESULTS_DIR / "tfidf_intent.json"
+MODEL_PATH       = DATA_DIR / "tfidf_intent.joblib"
+METRICS_PATH     = RESULTS_DIR / "tfidf_intent.json"
+EDGES_PATH       = DATA_DIR / "edges.parquet"
+EDGES_PRED_PATH  = DATA_DIR / "edges_pred.parquet"
 
 # SciCite label order  (int -> str)
 LABEL_NAMES = ["background", "method", "result"]
@@ -483,6 +488,9 @@ def predict(sentences, checkpoint_dir=SCIBERT_CKPT_DIR, batch_size=64):
     model.to(device)
     model.eval()
 
+    if not sentences:
+        return [], []
+
     dummy_labels = [0] * len(sentences)
     enc    = _tokenize(tokenizer, sentences, SCIBERT_MAX_LEN)
     ds     = CitationDataset(enc, dummy_labels)
@@ -504,13 +512,136 @@ def predict(sentences, checkpoint_dir=SCIBERT_CKPT_DIR, batch_size=64):
     return all_labels, all_confs
 
 
+def apply_to_corpus(
+    edges_path=EDGES_PATH,
+    output_path=EDGES_PRED_PATH,
+    checkpoint_dir=SCIBERT_CKPT_DIR,
+    batch_size=64,
+    smoke=False,
+    smoke_n=200,
+):
+    """
+    Step 10: Run SciBERT citation-intent inference on context_sentence in edges.parquet.
+    Saves edges_pred.parquet with predicted_intent and intent_confidence columns.
+
+    Prints:
+      1. Distribution of predicted_intent
+      2. Cross-tabulation of predicted_intent against s2_intent (Semantic Scholar label)
+      3. Agreement rate where s2_intent is present (mapping 'methodology' -> 'method')
+
+    Args:
+        edges_path:     Input parquet file path (default: data/edges.parquet).
+        output_path:    Output parquet file path (default: data/edges_pred.parquet).
+        checkpoint_dir: Path to fine-tuned SciBERT checkpoint (default: data/scibert_intent).
+        batch_size:     Batch size for predict() (default: 64).
+        smoke:          If True, run on the first smoke_n edges.
+        smoke_n:        Number of edges in smoke mode (default: 200).
+
+    Returns:
+        pd.DataFrame with added columns: predicted_intent, intent_confidence.
+    """
+    import pandas as pd
+
+    edges_path = Path(edges_path)
+    output_path = Path(output_path)
+    checkpoint_dir = Path(checkpoint_dir)
+
+    print(f"Loading edges from {edges_path} ...")
+    df = pd.read_parquet(edges_path)
+    total_edges = len(df)
+    print(f"Total edges loaded: {total_edges}")
+
+    if smoke:
+        n_edges = min(smoke_n, total_edges)
+        print(f"\n[SMOKE MODE] Running inference on first {n_edges} edges...")
+        df_target = df.head(smoke_n).copy()
+    else:
+        df_target = df.copy()
+
+    # Extract context sentences
+    sentences = df_target["context_sentence"].fillna("").astype(str).tolist()
+    print(f"Running predict() on {len(sentences)} citation sentences (batch_size={batch_size}) ...")
+
+    preds, confs = predict(sentences, checkpoint_dir=checkpoint_dir, batch_size=batch_size)
+
+    df_target["predicted_intent"] = preds
+    df_target["intent_confidence"] = [round(float(c), 6) for c in confs]
+
+    # Save to edges_pred.parquet
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    df_target.to_parquet(output_path, index=False)
+    print(f"\nSaved {len(df_target)} edges with predictions -> {output_path}")
+
+    # 1. Distribution of predicted_intent
+    n = len(df_target)
+    counts = df_target["predicted_intent"].value_counts()
+    print(f"\n-- Distribution of predicted_intent (n={n}) --")
+    for intent, count in counts.items():
+        pct = (count / n) * 100
+        print(f"  {intent:<12} {count:>6}  ({pct:>5.1f}%)")
+
+    # 2. Cross-tabulation: predicted_intent vs s2_intent
+    if "s2_intent" in df_target.columns:
+        print("\n-- Cross-tabulation: predicted_intent vs s2_intent --")
+        ct = pd.crosstab(
+            df_target["predicted_intent"],
+            df_target["s2_intent"].fillna("(none)"),
+            margins=True,
+            margins_name="Total",
+        )
+        print(ct)
+
+        # 3. Agreement rate where s2_intent is present
+        # SciCite uses: background, method, result
+        # Semantic Scholar uses: background, methodology, result
+        has_s2 = df_target["s2_intent"].notna()
+        s2_count = int(has_s2.sum())
+        if s2_count > 0:
+            s2_norm = df_target.loc[has_s2, "s2_intent"].replace({"methodology": "method"}).str.lower()
+            pred_norm = df_target.loc[has_s2, "predicted_intent"].str.lower()
+            matches = int((s2_norm == pred_norm).sum())
+            agreement = matches / s2_count
+            print(f"\nAgreement rate with s2_intent: {agreement:.2%} ({matches}/{s2_count} where s2_intent is non-null)")
+            print("  (Note: Semantic Scholar 'methodology' mapped to 'method' for comparison)")
+        else:
+            print("\nAgreement rate: 0 edges with non-null s2_intent found.")
+    else:
+        print("\nNote: 's2_intent' column not found in input DataFrame; skipping cross-tabulation.")
+
+    return df_target
+
+
 # =============================================================================
 # Entry point
 # =============================================================================
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Citation-intent classifier: TF-IDF (Step 8) or SciBERT (Step 9)."
+        description="Citation-intent classifier: TF-IDF (Step 8), SciBERT (Step 9), or apply to edges (Step 10)."
+    )
+    parser.add_argument(
+        "--apply", action="store_true",
+        help="Step 10: Apply SciBERT intent classifier to edges.parquet and save edges_pred.parquet.",
+    )
+    parser.add_argument(
+        "--smoke", action="store_true",
+        help="In --apply mode, run on first 200 edges only.",
+    )
+    parser.add_argument(
+        "--smoke-n", type=int, default=200,
+        help="Number of edges to process in smoke mode (default: 200).",
+    )
+    parser.add_argument(
+        "--edges-path", type=Path, default=EDGES_PATH,
+        help=f"Path to input edges.parquet (default: {EDGES_PATH}).",
+    )
+    parser.add_argument(
+        "--output-path", type=Path, default=EDGES_PRED_PATH,
+        help=f"Path to output edges_pred.parquet (default: {EDGES_PRED_PATH}).",
+    )
+    parser.add_argument(
+        "--batch-size", type=int, default=64,
+        help="Inference batch size (default: 64).",
     )
     parser.add_argument(
         "--scibert", action="store_true",
@@ -527,7 +658,18 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
-    if args.scibert:
+    if args.apply:
+        # ── Step 10: Apply to corpus edges ────────────────────────────────────
+        apply_to_corpus(
+            edges_path=args.edges_path,
+            output_path=args.output_path,
+            checkpoint_dir=args.checkpoint_dir,
+            batch_size=args.batch_size,
+            smoke=args.smoke,
+            smoke_n=args.smoke_n,
+        )
+
+    elif args.scibert:
         # ── SciBERT path ──────────────────────────────────────────────────────
         print("Loading allenai/scicite from HuggingFace datasets ...")
         ds_raw = load_dataset("allenai/scicite", trust_remote_code=True)
