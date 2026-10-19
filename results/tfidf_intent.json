@@ -1,0 +1,44 @@
+{
+  "macro_f1": 0.796687,
+  "per_class": {
+    "background": {
+      "precision": 0.828859,
+      "recall": 0.817881,
+      "f1-score": 0.823333,
+      "support": 604
+    },
+    "method": {
+      "precision": 0.883204,
+      "recall": 0.797189,
+      "f1-score": 0.837995,
+      "support": 996
+    },
+    "result": {
+      "precision": 0.623626,
+      "recall": 0.876448,
+      "f1-score": 0.728732,
+      "support": 259
+    }
+  },
+  "confusion_matrix": [
+    [
+      494,
+      82,
+      28
+    ],
+    [
+      93,
+      794,
+      109
+    ],
+    [
+      9,
+      23,
+      227
+    ]
+  ],
+  "model_path": "data\\tfidf_intent.joblib",
+  "dataset": "allenai/scicite",
+  "vectoriser": "TfidfVectorizer(ngram_range=(1,2), max_features=50000, sublinear_tf=True)",
+  "classifier": "LogisticRegression(max_iter=1000, class_weight=balanced)"
+}
