@@ -1,6 +1,11 @@
 # Ignore raw data, outputs, secrets and caches
 .env
-data/
+# Ignore large binary data, cache, and embeddings
+data/cache/
+data/*.parquet
+data/*.npy
+data/*.index
+data/models/
 __pycache__/
 *.pyc
 *.pyo

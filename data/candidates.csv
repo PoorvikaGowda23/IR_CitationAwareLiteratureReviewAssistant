@@ -1,0 +1,318 @@
+﻿query_id,rank,paper_id,title,year,score_dense,score_bm25
+s1_gcf,1,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.809,0.0
+s1_gcf,2,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7872,9.538
+s1_gcf,3,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7798,0.0
+s1_gcf,4,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.7776,0.0
+s1_gcf,5,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7746,10.2834
+s1_gcf,6,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7724,0.0
+s1_gcf,7,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.762,0.0
+s1_gcf,8,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7598,0.0
+s1_gcf,9,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7593,0.0
+s1_gcf,10,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.7569,0.0
+s1_gcf,11,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7511,0.0
+s1_gcf,12,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.7494,0.0
+s1_gcf,13,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7411,0.0
+s1_gcf,14,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7408,0.0
+s1_gcf,15,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7321,0.0
+s1_gcf,16,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7287,0.0
+s1_gcf,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.6959,0.0
+s1_gcf,18,3c5afbc6ab950105ae09e4e517c090e7ba626a23,Hybrid Recommendation System Using Graph Neural Network (HRS-GNN) and NLP-Based Trend-Aware Filtering,2025,0.0,11.4664
+s1_gcf,19,74e9341fb190d1acc9f375df2ff386f07509f5fa,A Node-Aware Dynamic Quantization Approach for Graph Collaborative Filtering,2025,0.0,11.2639
+s1_gcf,20,d5630291a4ba3f6266c77e6d00920502f986afa6,Cross Domain Recommendation via Bi-directional Transfer Graph Collaborative Filtering Networks,2020,0.0,11.115
+s1_gcf,21,5d942a8cbef40c596db6b9ea094e49d3349c11f8,GraphTransfer: A Generic Feature Fusion Framework for Collaborative Filtering,2024,0.0,10.8146
+s1_gcf,22,56c323fbae0a6487cd5043cebd7a7529ef51d541,Research on Graph Contrastive Collaborative Filtering Algorithm with Intent Disentanglement,2025,0.0,10.3323
+s1_gcf,23,3c8fba26e95c922d2616ecfb891de2542d01aea8,Improving Graph Collaborative Filtering via Spike Signal Embedding Perturbation,2024,0.0,10.1764
+s1_gcf,24,4859a9fec3a379cf08784736887cf138d453d943,Graph Structure Awareness and Edge Attention Collaborative Filtering,2025,0.0,10.0997
+s1_gcf,25,98e366d8e94fd9cbc274da60c5c436a8b74f0a70,KGERA: knowledge graph enhanced reasoning architecture for recommendation systems,2026,0.0,9.9844
+s1_gcf,26,7655226560aaf78dbfa0ba0c1d0d35884d323adf,Performance Evaluation of LightGCN for Amazon Product Recommendation,2025,0.0,9.8501
+s1_gcf,27,cbee19e846e6263c0d39e4471311f975b50174d4,LightGCN Experiment for Government E-service Recommendation,2026,0.0,9.3764
+s1_gcf,28,569a318defbe73b82b5d6379422f5a47ea7728f7,A Course Recommendation Method Based on the Integration of Curriculum Knowledge Graph and Collaborative Filtering,2025,0.0,9.3734
+s1_gcf,29,3a4317c9e6f02dc826d6d46f7717ef7bf35ec1db,Sistem Rekomendasi Film Berbasis Konteks Menggunakan Graph Neural Network Dengan Contrastive Learning Pada Dataset MovieLens,2026,0.0,9.2258
+s1_gcf,30,46da64f666499c0e6559c3b3d374fc7d07675332,Beyond graph structure:simplified spectral-aware contrastive collaborative filtering,2026,0.0,9.2036
+s1_gcf,31,95b98c88b184d65b366ee513708a4e24adef4634,Graph Neural Network Collaborative Filtering Recommendation with Integrated Attention Mechanism and Contrastive Learning,2025,0.0,9.1376
+s1_gcf,32,149edeb4638cdb9b7e4e6b54b1c74d1239c2df85,Bi-Directional Transfer Graph Contrastive Learning for Social Recommendation,2025,0.0,9.1163
+s1_gcf,33,81adb8a188204880b8cc3ebfda674c2d240563b3,DAPEW: Towards robust collaborative filtering with graph contrastive learning,2025,0.0,9.1118
+s1_gcf,34,14b3f81b021deb3f22210ccc176854ac2236570b,LLM-enhanced representation learning for graph collaborative filtering recommendation models,2025,0.0,9.1118
+s1_gcf,35,f1bbbf12146babcb9ec7b08fb83f039fb146e02a,Multirelational Collaborative Filtering for Global Graph Neural Networks to Mine Evolutional Social Relations,2024,0.0,9.0735
+s1_gcf,36,c034ce656691a9b5ddfcb6167e8a9411d86ae212,Fusing micro-preserved representations and item-homogeneous relationships for graph convolution collaborative filtering,2025,0.0,9.0218
+s1_gcf,37,6686f53c5b035e18ca823ba8fc7801e90de4f35c,Graph neural collaborative filtering with medical content-aware pre-training for treatment pattern recommendation,2024,0.0,8.9775
+s1_gcf,38,06ab3e626efe14289584747a5d1c4d9ca48af517,FIGNNCF: Feature integrated graph neural network based collaborative filtering for sequential recommendation,2025,0.0,8.9775
+s1_gcf,39,e7c7442bac762d0e8d22e385a57ec76e1e5c0c4c,Novel multi-graph enhanced collaborative filtering recommendation model via graph convolutional neural networks,2026,0.0,8.9775
+s1_gcf,40,7e0f6ca173cef987fac0906c3c7141d2561effb5,A Multi-Source Ensemble Approach to Candidate Generation for Alternative Vacation Rental Property Recommendations,2026,0.0,8.8998
+s1_gcf,41,9e707dd89bba25a3dd22c96f43bd72b9b3ab94bb,Higher-Order Explanations of Graph Neural Networks via Relevant Walks,2020,0.0,8.8971
+s1_gcf,42,f778186c42aac4822385ce43ebaeb79ac2ea5c1f,Spectral collaborative filtering,2018,0.0,8.8889
+s1_gcf,43,2186b695f127b1c2a5b56cb95a78a4a8d538515a,Multi-graph Convolution Collaborative Filtering,2019,0.0,8.8244
+s1_gcf,44,ba734ff1e14480c03ac0d769a6a341fb4608a382,When latent features meet side information: A preference relation based graph neural network for collaborative filtering,2025,0.0,8.8044
+s1_gcf,45,0154e8f5f3d14bd6fd5c333806894101ea2b1c7e,Sequence-aware Heterogeneous Graph Neural Collaborative Filtering,2021,0.0,8.7215
+s1_lightgcn,1,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.7949,21.5397
+s1_lightgcn,2,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.7846,0.0
+s1_lightgcn,3,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7671,0.0
+s1_lightgcn,4,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7655,0.0
+s1_lightgcn,5,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7631,0.0
+s1_lightgcn,6,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7558,0.0
+s1_lightgcn,7,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7487,0.0
+s1_lightgcn,8,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7483,0.0
+s1_lightgcn,9,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.7469,0.0
+s1_lightgcn,10,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7439,0.0
+s1_lightgcn,11,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7386,0.0
+s1_lightgcn,12,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7344,0.0
+s1_lightgcn,13,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7331,0.0
+s1_lightgcn,14,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7321,15.2963
+s1_lightgcn,15,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7307,0.0
+s1_lightgcn,16,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.721,0.0
+s1_lightgcn,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.7009,0.0
+s1_lightgcn,18,209a6ae94b3bd4b33ce909e42664eff851a93330,Hierarchical heterogeneous graph convolution network and improved LightGCN for service recommendation,2025,0.0,21.7125
+s1_lightgcn,19,d335532e6e4dd4f0ca0c3975c28f73b3f88863c6,Rolling Forward: Enhancing LightGCN with Causal Graph Convolution for Credit Bond Recommendation,2024,0.0,21.5741
+s1_lightgcn,20,a7febdc89a0235b7e944512a7e5358e268c8e1c3,Interest-aware Message-Passing GCN for Recommendation,2021,0.0,18.7494
+s1_lightgcn,21,7655226560aaf78dbfa0ba0c1d0d35884d323adf,Performance Evaluation of LightGCN for Amazon Product Recommendation,2025,0.0,18.5688
+s1_lightgcn,22,aa1c1897b7069a1bd74386ada2ec7f9fb2fb1bdc,"Revisiting LightGCN: Unexpected Inflexibility, Inconsistency, and A Remedy Towards Improved Recommendation",2024,0.0,18.0781
+s1_lightgcn,23,4754250441bfd196a59a7b711c6678a000afe79f,LightGCN Based Personalized Resource Matching Model for College Student Entrepreneurship Projects,2025,0.0,17.768
+s1_lightgcn,24,22350f217297e88f3a883227452cf631beb20ec4,Utilizing semantically enhanced self-supervised graph convolution and multi-head attention fusion for herb recommendation,2025,0.0,17.1116
+s1_lightgcn,25,747f32ba57bdecf638a5b3d552255e82bed207c1,Do We Really Need Graph Convolution During Training? Light Post-Training Graph-ODE for Efficient Recommendation,2024,0.0,17.0099
+s1_lightgcn,26,9a455f29aceae3b373411f6bb0757a537e3c16ae,Graph convolution machine for context-aware recommender system,2020,0.0,16.9381
+s1_lightgcn,27,cbee19e846e6263c0d39e4471311f975b50174d4,LightGCN Experiment for Government E-service Recommendation,2026,0.0,16.8681
+s1_lightgcn,28,0f5914c603fe172c422ae1f12e43d4167f65c529,MARA: A deep learning based framework for multilayer graph simplification,2024,0.0,16.4998
+s1_lightgcn,29,9575e789b49edd8f99fe2ce97bf16ceac185c79a,Insight into Spectral Graph Theory and Spectral Graph Neural Networks,2026,0.0,16.2884
+s1_lightgcn,30,9ce3cd7a763f663176bd95531774d9c3ea172ea5,Graph Convolutional Network for Recommendation with Low-pass Collaborative Filters,2020,0.0,16.2217
+s1_lightgcn,31,b55ced7263cfb45e3eb9421e15f334388925a86f,Correlation-Aware Graph Convolutional Networks for Multi-Label Node Classification,2024,0.0,15.612
+s1_lightgcn,32,e9f74e06dd3c93ef8f52b0f0f31fa3e2facfab52,Graph convolution recommendation system based on knowledge graph,2025,0.0,15.2804
+s1_lightgcn,33,2186b695f127b1c2a5b56cb95a78a4a8d538515a,Multi-graph Convolution Collaborative Filtering,2019,0.0,15.1843
+s1_lightgcn,34,3099475f2d10ee02225d4e1437db0bb0e3812ced,POI Recommendation with LLM-Augmented Multi-Graph Learning and Contrastive Alignment,2026,0.0,15.1274
+s1_lightgcn,35,2a6d160b529272964ce1a6707adf52f3d6ba4861,Diffusion Improves Graph Learning,2019,0.0,15.0117
+s1_lightgcn,36,706b90e0c3ce0c2882ec6d4a201312ada867b495,Personalized Course Recommendation Model Based on LightGCN and Learning Behavior Data,2025,0.0,14.9897
+s1_lightgcn,37,63068b2750233215b84d27f38fdd13897e51241d,MIMA: Multi-Feature Interaction Meta-Path Aggregation Heterogeneous Graph Neural Network for Recommendations,2024,0.0,14.8853
+s1_lightgcn,38,75d6b55e8b9146e3d9dce9091cfb03211a664b3a,MMGCN: Multi-modal Graph Convolution Network for Personalized Recommendation of Micro-video,2019,0.0,14.8599
+s1_lightgcn,39,36652428740cd30d245d55889f01a7fb04a91c93,Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning,2018,0.0,14.7291
+s1_lightgcn,40,c6b8b32a0e8a20bb454344b5706c777bf93b2de0,DA-GCN: A Domain-aware Attentive Graph Convolution Network for Shared-account Cross-domain Sequential Recommendation,2021,0.0,14.4123
+s1_lightgcn,41,c9e432023a240b22f385cf1cc76ab75fbe084ee7,Revisiting Graph based Collaborative Filtering: A Linear Residual Graph Convolutional Network Approach,2020,0.0,14.4068
+s1_lightgcn,42,6df21edcd08f7c2b2c8e2e23826286fb03547f0b,Drug-target interaction prediction based on graph convolutional autoencoder with dynamic weighting residual GCN,2025,0.0,14.3137
+s1_lightgcn,43,aec141bee7847b6810dfe3103449a76ddcad6f29,RecMind: LLM-Enhanced Graph Neural Networks for Personalized Consumer Recommendations,2025,0.0,14.2714
+s1_lightgcn,44,3a09a1fb6531df2836d0c36baf98812cddcd4558,JLR-GCN: Joint label-aware and relation-aware graph convolution neural network for heterogeneous graph representations,2025,0.0,14.2456
+s1_lightgcn,45,1badb22d7ca808c3ea76fa593409ce387fd47415,Dynamic Graph with Similarity-Aware Attention Graph Neural Network for Recommender Systems,2026,0.0,14.2383
+s1_session,1,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.8176,11.4082
+s1_session,2,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7968,0.0
+s1_session,3,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.7849,0.0
+s1_session,4,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7841,9.6472
+s1_session,5,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.7783,0.0
+s1_session,6,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7757,0.0
+s1_session,7,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7729,0.0
+s1_session,8,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.761,0.0
+s1_session,9,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7599,0.0
+s1_session,10,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7584,0.0
+s1_session,11,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7582,0.0
+s1_session,12,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7567,0.0
+s1_session,13,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7545,0.0
+s1_session,14,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7532,0.0
+s1_session,15,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7501,0.0
+s1_session,16,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.749,0.0
+s1_session,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.7241,0.0
+s1_session,18,63f9bc0d97bdfc80b0227415d170941c211acf43,Star Graph Neural Networks for Session-based Recommendation,2020,0.0,12.1285
+s1_session,19,cfb9b31386d6958d85ba34f01249aa66c6a42058,Personalizing Graph Neural Networks with Attention Mechanism for Session-based Recommendation,2019,0.0,12.1094
+s1_session,20,3dc2abdc8cad9841a570e9edefb717ed11510b0f,Self-Supervised Graph Co-Training for Session-based Recommendation,2021,0.0,11.8522
+s1_session,21,aac77c36a9a5c24aa135538c32950096e59ba442,TAGNN: Target Attentive Graph Neural Networks for Session-based Recommendation,2020,0.0,11.5411
+s1_session,22,b0d941cfa0a3c43703e5222221addb1ad0f9e68d,Rethinking the Item Order in Session-based Recommendation with Graph Neural Networks,2019,0.0,10.9212
+s1_session,23,3202064ed8beacef7ddf26908d80fff2c0bdbf2f,Context-aware Graph Embedding for Session-based News Recommendation,2020,0.0,10.9021
+s1_session,24,8b716b3723b78f5ceaedcd656041e9f679dfc5b6,Beyond Clicks: Modeling Multi-Relational Item Graph for Session-Based Target Behavior Prediction,2020,0.0,10.7414
+s1_session,25,fd7cb0b9f58b8e814e3e00cddbfe93686c276ee6,Incorporating Link Prediction into Multi-Relational Item Graph Modeling for Session-Based Recommendation,2021,0.0,10.5408
+s1_session,26,6ee2dc6ed02c811c508071e64071da4545ff7be3,Heterogeneous Global Graph Neural Networks for Personalized Session-based Recommendation,2021,0.0,10.2385
+s1_session,27,9f824f066c70a8fdf962f58acd36b48c826836d2,DGTN: Dual-channel Graph Transition Network for Session-based Recommendation,2020,0.0,9.7744
+s1_session,28,3350accefa3e7601ffde62e7410eb02225cdabb3,Knowledge-Enhanced Multi-Level Session Graph Model for Interactive Recommendation through Deep Reinforcement Learning,2026,0.0,9.7058
+s1_session,29,bb4e06efa0d947fb8c7a63fa154ca53991ae9b66,CCT-GNN: Collaborative category and time-aware graph neural networks for session-based recommendation systems,2025,0.0,9.6577
+s1_session,30,af681c758f123c864851ca0fa6b1b31d23e9cb2b,Dual Attention with Self-Adaptive Negative Sampling for Session-Based Recommendation,2025,0.0,9.6431
+s1_session,31,0126283bca7a20e234dcf89ee68f3f5400d49622,GAG: Global Attributed Graph Neural Network for Streaming Session-based Recommendation,2020,0.0,9.5687
+s1_session,32,0552e5f53bb30cda3e838e7e136490790a6527f8,Collaborative Graph Learning for Session-based Recommendation,2022,0.0,9.381
+s1_session,33,1dd7038128e3a1ba49f0224ac711166c8dc36d3d,Recurrent Neural Networks with Top-k Gains for Session-based Recommendations,2017,0.0,9.3497
+s1_session,34,3a0b49179ce8f3ed5fe0d104f7c3817f7449770c,Graph neural network based model for multi-behavior session-based recommendation,2021,0.0,9.1285
+s1_session,35,7df2a0439773e0ca9ff7b2dc75652cb1a83cf4a0,G3SR: Global Graph Guided Session-Based Recommendation,2022,0.0,8.9764
+s1_session,36,38b06821977b5024dd51145bbcfdd0eac42d439c,Graph Contextualized Self-Attention Network for Session-based Recommendation,2019,0.0,8.9707
+s1_session,37,b05a5424d0fce45896b6b8a847cf540a38f556bc,Global Context Enhanced Graph Neural Networks for Session-based Recommendation,2020,0.0,8.9254
+s1_session,38,dc3874003319001f276ec752dd427ac338619bf4,Temporal Augmented Graph Neural Networks for Session-Based Recommendations,2021,0.0,8.7539
+s1_session,39,fc82d6c5326c1a94c4e263c90b646931b9c3e154,CGG: Category-aware global graph contrastive learning for session-based recommendation,2024,0.0,8.7115
+s1_session,40,cb96623aac4219e129acde120cbf69d5fecc560f,Dual Attention Transfer in Session-based Recommendation with Multi-dimensional Integration,2021,0.0,8.6861
+s1_session,41,2c854b5f18aa422d9acbfb59e2b1b0ed6d74bf2b,Capturing dynamic interests with deformable attention mechanism for session-based recommendation,2026,0.0,8.6683
+s1_session,42,69b6af56160eb25482714fc3a9a93999073dd0a8,An Efficient and Effective Framework for Session-based Social Recommendation,2021,0.0,8.4941
+s1_session,43,796453db982b6b47cb0a1823290befae73bf7d37,Graph and Sequential Neural Networks in Session-based Recommendation: A Survey,2024,0.0,8.4612
+s1_session,44,b9631936ab9e41511f0eb85adb0fc7b8efb7983e,Handling Information Loss of Graph Neural Networks for Session-based Recommendation,2020,0.0,8.4473
+s1_session,45,37e5af950e452c50a5b2f2d34ff2c5f6dfd898ea,Skip-Gram and Transformer Model for Session-Based Recommendation,2024,0.0,8.4365
+s2_kg,1,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.8181,9.583
+s2_kg,2,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7902,10.4096
+s2_kg,3,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.7889,0.0
+s2_kg,4,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7884,0.0
+s2_kg,5,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7882,0.0
+s2_kg,6,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7855,0.0
+s2_kg,7,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.7814,0.0
+s2_kg,8,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7803,0.0
+s2_kg,9,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7748,0.0
+s2_kg,10,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7746,0.0
+s2_kg,11,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7722,0.0
+s2_kg,12,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7703,0.0
+s2_kg,13,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7674,0.0
+s2_kg,14,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7641,0.0
+s2_kg,15,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7571,0.0
+s2_kg,16,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.7562,0.0
+s2_kg,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.7439,0.0
+s2_kg,18,4e810d6b04de4e657a4cda2f58296b01e91eae53,Multi-Task Feature Learning for Knowledge Graph Enhanced Recommendation,2019,0.0,11.1774
+s2_kg,19,c6bc41244828542fa4bf7f2709b44ddce12bea22,SE-GSSL: Soft-Mask enhanced graph self-supervised learning with multi-aspect knowledge encoding and adaptive sample selection,2025,0.0,10.314
+s2_kg,20,cc7058d39d9418295f4c6a9b135cd31691d253fe,BNKG: BERT-based Non-sampling Knowledge Graph Enhanced Recommendation,2024,0.0,10.2285
+s2_kg,21,98e366d8e94fd9cbc274da60c5c436a8b74f0a70,KGERA: knowledge graph enhanced reasoning architecture for recommendation systems,2026,0.0,9.6123
+s2_kg,22,f4fb4292ec48fa37c3fa6ca73d558a0a051c8f31,Transparent Learner Knowledge State Modeling using Personal Knowledge Graphs and Graph Neural Networks,2024,0.0,9.2822
+s2_kg,23,ad1204a38b5d6661a0d52f4d53c867cc514b8255,Unifying Invariant and Variant Knowledge With Dual-Hypergraph Contrastive Evolution for Temporal Knowledge Graph Reasoning,2026,0.0,8.5169
+s2_kg,24,a7cd8a691c2784f2bed44c77c53ab7e766b2dd6d,Community-Aware Graph Learning for Enhanced GNN-Based Recommendation,2026,0.0,8.4435
+s2_kg,25,22350f217297e88f3a883227452cf631beb20ec4,Utilizing semantically enhanced self-supervised graph convolution and multi-head attention fusion for herb recommendation,2025,0.0,8.0418
+s2_kg,26,a6da5335dc3be1aac689ce5393c8e187fcef083d,Multi-modal Knowledge Graphs for Recommender Systems,2020,0.0,7.9893
+s2_kg,27,90450fe686c0fa645a1954950adffc5b2401e4b7,Hierarchical attentive knowledge graph embedding for personalized recommendation,2019,0.0,7.9542
+s2_kg,28,8383bfc78ff42f51209b89340bbeb1c28cddf487,GCN-diffusion and multi-view contrastive learning for enhanced knowledge recommendation,2025,0.0,7.9408
+s2_kg,29,3661e6bca8ebff0a63f8e5060df60320fbcde842,Dual Graph enhanced Embedding Neural Network for CTR Prediction,2021,0.0,7.919
+s2_kg,30,30567ad9e81c1809c57e0df83e561ef725eafd4b,Incorporating Knowledge Graph Embeddings into Graph Neural Networks for Sequential Recommender Systems,2024,0.0,7.8863
+s2_kg,31,45544bbb75818fe225a2569e515e87ec0c76deec,KDG-Rec: Enhanced Dual-GNN Programming Exercise Recommendation via LLM-Powered Knowledge Annotation and Preference-Decoupling,2026,0.0,7.8606
+s2_kg,32,767a69ace5a19b0a9f8fd4ca4834fa5a1af863e1,Dynamic Knowledge Selector and Evaluator for recommendation with Knowledge Graph,2025,0.0,7.6441
+s2_kg,33,924722ab5fd15b13bbe1c47e30127732b02c506e,An enhanced graph convolutional network with property fusion for acupoint recommendation,2024,0.0,7.4986
+s2_kg,34,594dc362b4332ae661e3d71da17d097bb4a357dd,Knowledge-aware Graph Neural Networks with Label Smoothness Regularization for Recommender Systems,2019,0.0,7.4754
+s2_kg,35,e7c7442bac762d0e8d22e385a57ec76e1e5c0c4c,Novel multi-graph enhanced collaborative filtering recommendation model via graph convolutional neural networks,2026,0.0,7.4618
+s2_kg,36,07b3c147c9c80a1e404b72335e56519ee423d776,FinalGNN: A dual feature graph enhanced model for CTR prediction,2024,0.0,7.4274
+s2_kg,37,05c8a95e3ab869e4736f281adaeccc99cf91e874,Dual-LightGCN+: Enhanced Dual Light Graph Convolutional Network for Discriminative Recommendation,2025,0.0,7.3881
+s2_kg,38,8f2cd49c8ae437fc09d0504356d24312bbab1571,Multitype view of knowledge contrastive learning for recommendation,2024,0.0,7.345
+s2_kg,39,0225f419c91618f7295c7697447982b51ca47cc1,Knowledge Graph-Enhanced Masked Auto-Encoders for Recommendation Systems,2025,0.0,7.2973
+s2_kg,40,d44050abf76b2d1a2cb6d127093cfb83ab2d96c8,Deep Learning on Knowledge Graph for Recommender System: A Survey,2020,0.0,7.2912
+s2_kg,41,e90fce81f747639debd5b3b9652167f80a232406,Sequential Learner Modeling Using Multi-Relational Graph Convolutional Networks,2026,0.0,7.2001
+s2_kg,42,39d3e7669b8e82188b955fc571d6411bcdd42355,Paired Channel Enhanced Sign-Aware Graph Recommendation,2026,0.0,7.1738
+s2_kg,43,b4cc53835ecee68bc37db1fbb1631573a3900906,A Survey on Knowledge Graph-Based Recommender Systems,2020,0.0,7.1379
+s2_kg,44,ea788e4e5452d79a4ba88983a5dee1893aa283a9,Efficient Recommendation with Dynamic Subgraph Enhanced GCN*,2025,0.0,7.0286
+s2_kg,45,e38a0ec359d51a66a8c41dae4b25065659e8bda9,Multi-Behavior Enhanced Recommendation with Cross-Interaction Collaborative Relation Modeling,2021,0.0,7.0278
+s2_contrastive,1,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.781,12.858
+s2_contrastive,2,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.7759,15.2476
+s2_contrastive,3,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7733,13.8475
+s2_contrastive,4,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7608,0.0
+s2_contrastive,5,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7503,0.0
+s2_contrastive,6,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7475,0.0
+s2_contrastive,7,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.745,0.0
+s2_contrastive,8,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.7417,0.0
+s2_contrastive,9,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7387,0.0
+s2_contrastive,10,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7383,0.0
+s2_contrastive,11,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7337,12.7657
+s2_contrastive,12,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7274,0.0
+s2_contrastive,13,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7245,0.0
+s2_contrastive,14,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7213,0.0
+s2_contrastive,15,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7156,0.0
+s2_contrastive,16,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.7117,0.0
+s2_contrastive,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.6884,0.0
+s2_contrastive,18,dd511e6bb0cc427384f4bf8499dedac428f35e3f,Adaptive Fusion Self-supervised Learning for Recommendation,2024,0.0,18.686
+s2_contrastive,19,149edeb4638cdb9b7e4e6b54b1c74d1239c2df85,Bi-Directional Transfer Graph Contrastive Learning for Social Recommendation,2025,0.0,17.4564
+s2_contrastive,20,3dc2abdc8cad9841a570e9edefb717ed11510b0f,Self-Supervised Graph Co-Training for Session-based Recommendation,2021,0.0,16.9186
+s2_contrastive,21,8f2cd49c8ae437fc09d0504356d24312bbab1571,Multitype view of knowledge contrastive learning for recommendation,2024,0.0,16.4565
+s2_contrastive,22,5d1e67757d071426e483633677f574847b77a569,Multi-Objective Graph Contrastive Learning for Recommendation,2025,0.0,16.2305
+s2_contrastive,23,969399d2bcb89e980b4d3e12aadb9c087bf85f0e,Socially-Aware Self-Supervised Tri-Training for Recommendation,2021,0.0,15.4155
+s2_contrastive,24,a0014254e1e1c61596c939add9a571f3502e4e52,Hierarchical Self-Supervised Learning for Knowledge-Aware Recommendation,2024,0.0,15.3251
+s2_contrastive,25,6e66f446e515e595b766bb3305fb76d5f7fc5282,GSSCL: A framework for Graph Self-Supervised Curriculum Learning based on clustering label smoothing,2024,0.0,15.2513
+s2_contrastive,26,9f4cd9ea79ccbb56c6e9b2d430f4369a5ea145bc,A Triangular Stable Node Network based on Self-supervised Learning for personalized prediction,2025,0.0,15.1299
+s2_contrastive,27,0e2efc5a719909c10fb677661f77aa21a2f8b73c,Simplified self-supervised learning for hybrid propagation graph-based recommendation,2025,0.0,15.0456
+s2_contrastive,28,cdbfca4b727a0ab8eb4df9945fb77c8bb0406a7c,Multi-Task Contrastive Learning for Heterogeneous Graph-Based Music Recommendation,2026,0.0,14.9162
+s2_contrastive,29,3099475f2d10ee02225d4e1437db0bb0e3812ced,POI Recommendation with LLM-Augmented Multi-Graph Learning and Contrastive Alignment,2026,0.0,14.4956
+s2_contrastive,30,bfb0cf1a789a5d5e8e0f1f345cb6d5837811ddc4,Self-supervised Adversarial Purification for Graph Neural Networks,2026,0.0,14.3138
+s2_contrastive,31,22350f217297e88f3a883227452cf631beb20ec4,Utilizing semantically enhanced self-supervised graph convolution and multi-head attention fusion for herb recommendation,2025,0.0,14.0344
+s2_contrastive,32,44ab814079843d442b53c91f87761e228fd89a70,Hypergraph Contrastive Learning with Graph Structure Learning for Recommendation,2024,0.0,13.4336
+s2_contrastive,33,0f91bb3bbaf594df348ba518a1004e0d35a7863d,LLM-Enhanced Heterogeneous Graph Neural Networks for Research Project Conflict Detection,2025,0.0,13.3545
+s2_contrastive,34,d8f51c4362ebce94907e155834589c71cc073a1b,RaDAR: Relation-aware Diffusion-Asymmetric Graph Contrastive Learning for Recommendation,2026,0.0,13.348
+s2_contrastive,35,5022f736d2dfc8209077f78b36f409a047a4b7f3,Enhancing Graph Contrastive Learning with Reliable and Informative Augmentation for Recommendation,2024,0.0,13.2646
+s2_contrastive,36,c5c215a11ce6dce073cc87d378ff18736f6e441d,Heat Learning and Rationale-Aware SSL: Boosting Recommender Systems with Residual Graph Transformers,2026,0.0,13.229
+s2_contrastive,37,ade0b7f79e5cdeee4f6d4f23e4f97f382b786d34,CIEGCL: Counterfactual Intervention Enhancing Graph Contrastive Learning in Implicit Feedback,2025,0.0,13.1171
+s2_contrastive,38,7a35aee3eac6947f96eee751e3524df7c43ab980,Prototypical Graph Contrastive Learning for Recommendation,2025,0.0,12.8778
+s2_contrastive,39,3317e9e916648aed681b74b3a80dc31cc4b6191c,PCGNet: Unifying Shared and Specific Information for Fashion Matching Recommendations,2026,0.0,12.8441
+s2_contrastive,40,f864cfef944325e0c7f0ae114497d8e1a6e96531,A Novel Contrast Learning Model Based on Data Augmentation,2024,0.0,12.8248
+s2_contrastive,41,226d2b8cde28d5c0ef5ecf25c59b28ab4ad9182d,H3GNNs: Harmonizing Heterophily and Homophily in GNNs via Joint Structural Node Encoding and Self-Supervised Learning,2025,0.0,12.8243
+s2_contrastive,42,04362215a91fbb4d35f2008b712f265b695e7121,Graph Contrastive Learning via Noisy Training for Cold-Start Recommendation,2026,0.0,12.7378
+s2_contrastive,43,6f9f4f8b39739baf7ba0bc875269203ba43bd5b5,Prompt-Guided Graph Contrastive Learning with Controllable Augmentation and Fine-Grained Preference Modeling for Recommendation,2026,0.0,12.71
+s3_hypergraph,1,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.8248,0.0
+s3_hypergraph,2,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.8027,0.0
+s3_hypergraph,3,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.8022,0.0
+s3_hypergraph,4,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.8019,0.0
+s3_hypergraph,5,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.7929,0.0
+s3_hypergraph,6,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7894,0.0
+s3_hypergraph,7,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7859,0.0
+s3_hypergraph,8,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.7859,0.0
+s3_hypergraph,9,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7847,0.0
+s3_hypergraph,10,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7829,0.0
+s3_hypergraph,11,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7801,0.0
+s3_hypergraph,12,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.7785,0.0
+s3_hypergraph,13,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7671,0.0
+s3_hypergraph,14,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7659,0.0
+s3_hypergraph,15,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.7594,0.0
+s3_hypergraph,16,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7504,0.0
+s3_hypergraph,17,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7489,0.0
+s3_hypergraph,18,c3ef11a7a8a46f1f193250dd68838cb72b7de0bc,Self-Supervised Hypergraph Convolutional Networks for Session-based Recommendation,2020,0.0,10.7946
+s3_hypergraph,19,b3c02026c1408c261d837917bf2bdf0318643b75,Enhanced Pre-training for Recommendation via Hypergraph Structural Entropy,2025,0.0,10.4615
+s3_hypergraph,20,510d98681e5e85fb1265513728f16e2543ae1b4b,Hypergraph Neural Networks,2018,0.0,10.3027
+s3_hypergraph,21,68c9d777b66c24967a7c808210093684d89eba10,Self-Supervised Multi-Channel Hypergraph Convolutional Network for Social Recommendation,2021,0.0,10.1439
+s3_hypergraph,22,6521d263e8faab3657ebb7b28e14eedcfae7f0f4,Session-based Recommendation with Hypergraph Attention Networks,2021,0.0,10.1216
+s3_hypergraph,23,70c202c679e32df6aa680b026e262cdda1f3bd48,Multi-view hypergraph contrastive learning for bundle recommendation,2025,0.0,9.9916
+s3_hypergraph,24,5dfec4395f6a864a8a64d2fafb1dc77a5253bd0d,HypeAssign: Hypergraph contrastive learning for issue assignment,2026,0.0,9.8815
+s3_hypergraph,25,39f60661102c71ad292b474b9bf7d4dfa1afdca0,HyperSF: A Hypergraph Representation Learning Method Based on Structural Fusion,2025,0.0,9.7874
+s3_hypergraph,26,44ab814079843d442b53c91f87761e228fd89a70,Hypergraph Contrastive Learning with Graph Structure Learning for Recommendation,2024,0.0,9.6848
+s3_hypergraph,27,63e2c82641458ec6cf6ebdaf5c3cefeec73ffebf,Dual-branch network with hypergraph feature augmentation and adaptive logits adjustment for long-tailed visual recognition,2024,0.0,9.5449
+s3_hypergraph,28,2849de798a9ff6b86af824634df35f78310c71ba,Implicit Hypergraph Neural Networks: A Stable Framework for Higher-Order Relational Learning with Provable Guarantees,2025,0.0,9.4345
+s3_hypergraph,29,ecbd654c7d512f796eac584e022f2e7214b9f230,Hypergraph Structure Recommendation Model with Counterfactual Learning,2025,0.0,9.2102
+s3_hypergraph,30,eb05d45d3fc4225fe582eb841b0078b1d36b6a53,Music Recommendation via Hypergraph Embedding,2022,0.0,9.1455
+s3_hypergraph,31,0f031a447113814648f5bac912649ebb8f849a7a,MMHCL: Multi-Modal Hypergraph Contrastive Learning for Recommendation,2025,0.0,9.0278
+s3_hypergraph,32,9c35d24ba7a25bf1addc515756ffddfa23a77483,Dual Channel Hypergraph Collaborative Filtering,2020,0.0,8.9312
+s3_hypergraph,33,b4bf71f36182faf43a036656f4ba2ae37034b281,EduGraph: Learning Path-Based Hypergraph Neural Networks for MOOC Course Recommendation,2024,0.0,8.8452
+s3_hypergraph,34,c6ef4787153b59b44c32707f42a6862438b93594,Hypergraph Neural Reservoir with Lyapunov‑Adaptive Attention for Robust Context‑Aware Tourism Recommendation,2025,0.0,8.4077
+s3_hypergraph,35,f9efe02ab0dbb8c21a817969841472fe4af0c6ce,PH2ST:ST-Prompt Guided Histological Hypergraph Learning for Spatial Gene Expression Prediction,2025,0.0,8.1997
+s3_hypergraph,36,600db9a6f0700efc70fa2a8ff8ce984cc561f5e6,PH2ST: Prompt-guided hypergraph learning for spatial transcriptomics prediction in whole slide images,2026,0.0,8.1719
+s3_hypergraph,37,13d4c5ca6bbf2d847e6c79bc8eea98ef7069c349,A novel heterogeneous hypergraph social network recommendation system,2026,0.0,7.1884
+s3_hypergraph,38,7432643583a28c884a2241014df4f2ff39a66ed4,Price-Aware Recommender Systems: A Cross-Paradigm Reproducibility Study,2026,0.0,6.2509
+s3_hypergraph,39,743f72d8a4691ae60d80ab772838ac05b141696a,Hypergraph-Guided Distribution Alignment for Bundle Recommendation,2026,0.0,6.2402
+s3_hypergraph,40,18b6397238ad80d4026c117d2e6e5f2a1fef1a80,A Structure-Aware Fair Recommendation Approach Based on Counterfactual Dynamic Hypergraphs,2025,0.0,5.8502
+s3_hypergraph,41,39c2d99f1dbc71060ffb0428ce6cb67a7398a532,Dual-Channel Hybrid Graph Neural Network for Mobility Social Relationship Inference,2026,0.0,5.5774
+s3_hypergraph,42,af700294ab3be8e9fdeda8b3bf80a34372df4cd2,Joint Global-Local Representations via Relation-Entity Pair Encoding for Hyper-Relational Knowledge Graphs,2026,0.0,4.7548
+s3_hypergraph,43,89ddf468bdb7438de5dced72f928d33de78e8a50,IEEE TRANSACTIONS ON NEURAL NETWORKS AND LEARNING SYSTEMS Publication Information,2020,0.0,4.3341
+s3_hypergraph,44,f7ecedc832e7abe6f042afcd9225e097716e39ae,Graph Neural Patching for Cold-Start Recommendations,2024,0.0,4.289
+s3_hypergraph,45,d74fa2dd4b3287bb8b072e79aa79b44f4e6242b8,"Graph Neural Networks for Integrated Circuit Design, Reliability, and Security: Survey and Tool",2025,0.0,4.2592
+s3_hypergraph,46,6017e81c5ede6c38b306a3df9738aeb04baa7619,Graph Convolutional Networks for Text Classification,2018,0.0,4.2124
+s3_hypergraph,47,b8e837349f3903e2c2e0d7a2e2c0b2e185ed6942,Pone-GNN: Integrating Positive and Negative Feedback in Graph Neural Networks for Recommender Systems,2025,0.0,4.1917
+s3_dynamic,1,ac42cb67c0f022821e014cc8b7427e15fb4cd501,Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis,2023,0.7774,0.0
+s3_dynamic,2,2d7d1e8cdecfe7c2ee37ed50f73409edc7ac56a7,A Novel session-based recommendation system using capsule graph neural network,2025,0.7663,0.0
+s3_dynamic,3,c5f5f179d80a3bf9b4f29750283a87eaca42e91b,Neural Graph Collaborative Filtering,2019,0.7637,0.0
+s3_dynamic,4,0c7e1338a9c7914a3b9a5bdc42b457b3f272160e,Session-based Recommendation with Graph Neural Networks,2018,0.7616,0.0
+s3_dynamic,5,79d7ba3b0bb8e4a73901c2dac003a3f501b0035c,Enhancing Graph Collaborative Filtering with FourierKAN Feature Transformation,2024,0.7599,0.0
+s3_dynamic,6,eee6c34f351805816a1d8650182f03f578484847,Exploring the Individuality and Collectivity of Intents behind Interactions for Graph Collaborative Filtering,2024,0.7598,0.0
+s3_dynamic,7,1c99281bda08ab51efd95d4d6f48b2f83a5d8716,Region or Global? A Principle for Negative Sampling in Graph-Based Recommendation,2023,0.7579,0.0
+s3_dynamic,8,6c96c2d4a3fbd572fef2d59cb856521ee1746789,Graph Convolutional Neural Networks for Web-Scale Recommender Systems,2018,0.7551,0.0
+s3_dynamic,9,de02ec03f6a71246e505862a7195894601fbab99,KGAT: Knowledge Graph Attention Network for Recommendation,2019,0.755,0.0
+s3_dynamic,10,c211541504763c80bd2853b3fb5901e9aa355ad3,Enhanced knowledge graph recommendation algorithm based on multi-level contrastive learning,2024,0.7536,0.0
+s3_dynamic,11,9d4901609a00d42cba00ffcb3c337bd3830140f6,Disentangled Graph Collaborative Filtering,2020,0.7525,0.0
+s3_dynamic,12,3024f58826a5bce3378af94f677e8fb90cbb49e0,LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation,2020,0.7504,0.0
+s3_dynamic,13,b961583250d1a3150ad7499e160447e79c46d26a,Graph neural network recommendation algorithm based on improved dual tower model,2024,0.7477,0.0
+s3_dynamic,14,e46aa831aac38520249dff35916937f0d094f32e,Knowledge Enhanced Graph Neural Networks for Explainable Recommendation,2023,0.7432,0.0
+s3_dynamic,15,75739ed2ddebd7982042f516f407553f8d3110f8,Self-supervised Graph Learning for Recommendation,2020,0.7399,0.0
+s3_dynamic,16,3fe92dae73a1d98a52a73c1c46a5be3dafd0c14d,Improving Graph Collaborative Filtering with Neighborhood-enriched Contrastive Learning,2022,0.7374,0.0
+s3_dynamic,17,7db1dbdd2344a3d825bef8d129990400ab124744,Graph-Grounded Goal Planning for Conversational Recommendation,2023,0.7354,0.0
+s3_dynamic,18,286d2e0f3d882a37f486623c716d8a54a4a58fdc,Dynamic Graph Neural Networks for Sequential Recommendation,2021,0.0,17.6995
+s3_dynamic,19,e7e9d29e18c840bf23acecc8958ede0f1dc27402,Cross-Representation Knowledge Transfer for Improved Sequential Recommendations,2026,0.0,17.0561
+s3_dynamic,20,8a42a381be3d8bd00f8c861068f4ad90e7faa34c,Group-Aware Long- and Short-Term Graph Representation Learning for Sequential Group Recommendation,2020,0.0,16.927
+s3_dynamic,21,f3854f531f002dfd4e7327240adb696c52795009,Streaming Graph Neural Networks,2018,0.0,16.3964
+s3_dynamic,22,7f2b7a7c1444be674af716643ec821d2f4828548,BiG: Bidirectional Graph Convolutional Networks for Social and Sequential Recommendation,2024,0.0,16.2955
+s3_dynamic,23,31df60fca09bae5c83f8ec5b6c9e4798c765ed7f,Explainable Interaction-driven User Modeling over Knowledge Graph for Sequential Recommendation,2019,0.0,16.1408
+s3_dynamic,24,b9915d00a7f46e51e587aff4365e1c48ab8ef496,Graph-Based Embedding Smoothing for Sequential Recommendation,2023,0.0,15.5872
+s3_dynamic,25,da4fc5042c8441c0cb0654e9e486bd97100be4a3,Multi-behavior Sequential Recommendation via Reinforcement Learning and Graph Neural Networks,2026,0.0,15.3727
+s3_dynamic,26,0154e8f5f3d14bd6fd5c333806894101ea2b1c7e,Sequence-aware Heterogeneous Graph Neural Collaborative Filtering,2021,0.0,15.2989
+s3_dynamic,27,ca4185c32cf7086c5e6289d5f769edc6fc1ef1d4,Evolving Graph Learning for Out-of-Distribution Generalization in Non-Stationary Environments,2025,0.0,14.8619
+s3_dynamic,28,04c63ded1bd875bcc991573919c0c5e3c726f9e8,Temporal Meta-path Guided Explainable Recommendation,2021,0.0,14.0758
+s3_dynamic,29,3bf14edcdc264b343d6c7b7e7aeff18ec708a998,Comparing Graph Neural Networks Aggregation Strategies for Dynamic Programming-Based Reasoning Tasks,2024,0.0,13.6077
+s3_dynamic,30,690edf44e8739fd80bdfb76f40c9a4a222f3bba8,BERT4Rec: Sequential Recommendation with Bidirectional Encoder Representations from Transformer,2019,0.0,13.4238
+s3_dynamic,31,3985944edc427b31b5e9296ef382ede435ac42e5,Graph Convolutional Networks With Collaborative Feature Fusion for Sequential Recommendation,2025,0.0,13.1088
+s3_dynamic,32,2f158d090ffef32e066e7638655bd85072b9c515,Graph Transformers: A Survey,2024,0.0,13.1034
+s3_dynamic,33,3bd04f5d652a209cc1822b2789807baaa8a0149b,Inter-sequence Enhanced Framework for Personalized Sequential Recommendation,2020,0.0,12.9861
+s3_dynamic,34,595f3f116a0448d82d107290830d06e65b6a96f6,TagRec: Temporal-Aware Graph Contrastive Learning With Theoretical Augmentation for Sequential Recommendation,2025,0.0,12.9317
+s3_dynamic,35,c4e9f068888af070f82a5a99540e49ed97d4b719,Graph-Structure-Aware and Representation-Aligned Multi-Task Recommendation,2026,0.0,12.8651
+s3_dynamic,36,af0c586b8a35cce298f179245fa4b941f4435978,HGN2T: A Simple but Plug-and-Play Framework Extending HGNNs on Heterogeneous Temporal Graphs,2024,0.0,12.7507
+s3_dynamic,37,0a7d309da78ed1b1c05e85ed5ac35355f1a7442d,Modeling Multi-Grained User Interests for Sequential Recommendation,2026,0.0,12.7293
+s3_dynamic,38,796453db982b6b47cb0a1823290befae73bf7d37,Graph and Sequential Neural Networks in Session-based Recommendation: A Survey,2024,0.0,12.5505
+s3_dynamic,39,41cd65d760e7de6f10419d36b3d798a7e0455724,Memory Augmented Graph Neural Networks for Sequential Recommendation,2019,0.0,12.5345
+s3_dynamic,40,c7c1c3ea3733ac1b20b4c9bc9d2af0b1311055d6,Cambricon-DG: An Accelerator for Redundant-Free Dynamic Graph Neural Networks Based on Nonlinear Isolation,2025,0.0,12.3874
+s3_dynamic,41,fbb87e32fd63ae980c0ff6cf6878fd5e4d7bda1d,Sequential Recommendation with Graph Neural Networks,2021,0.0,12.3748
+s3_dynamic,42,16b4a74c4110e3eb50a72e7a0a5e6b893a170d02,Improving End-to-End Sequential Recommendations with Intent-aware Diversification,2019,0.0,12.3745
+s3_dynamic,43,e90fce81f747639debd5b3b9652167f80a232406,Sequential Learner Modeling Using Multi-Relational Graph Convolutional Networks,2026,0.0,12.3376
+s3_dynamic,44,dc3874003319001f276ec752dd427ac338619bf4,Temporal Augmented Graph Neural Networks for Session-Based Recommendations,2021,0.0,12.3066
+s3_dynamic,45,6df21edcd08f7c2b2c8e2e23826286fb03547f0b,Drug-target interaction prediction based on graph convolutional autoencoder with dynamic weighting residual GCN,2025,0.0,12.2844
+s3_dynamic,46,569ee298740faf5f41807efe07b96e0555466d76,Exploring the Potential of Large Language Models as Predictors in Dynamic Text-Attributed Graphs,2025,0.0,12.2806
+s3_dynamic,47,d837642802ffc85e193694f94f7499276864648e,"Sequential Recommender Systems: Challenges, Progress and Prospects",2019,0.0,12.2699
