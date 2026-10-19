@@ -52,6 +52,28 @@ SPECTER_BASE: str = "allenai/specter2_base"
 # SciBERT used for intent classification of citation sentences
 SCIBERT: str = "allenai/scibert_scivocab_uncased"
 
+# ── Corpus filtering & landmark papers ─────────────────────────────────────────
+CORPUS_CAP: int = 1500   # maximum total papers in the 1-hop expanded corpus
+MIN_CITATIONS: int = 20  # minimum citationCount required for generic search results
+
+# Known survey papers in the target research domain
+SURVEY_TITLES: list[str] = [
+    "Graph Neural Networks in Recommender Systems: A Survey",
+    "A Survey of Graph Neural Networks for Recommender Systems: Challenges, Methods, and Directions",
+    "Graph Learning based Recommender Systems: A Review",
+]
+
+# Core landmark / foundational papers for the domain (always included)
+SEED_TITLES: list[str] = [
+    "Neural Graph Collaborative Filtering",
+    "Session-based Recommendation with Graph Neural Networks",
+    "LightGCN: Simplifying and Powering Graph Convolution Network for Recommendation",
+    "Graph Convolutional Neural Networks for Web-Scale Recommender Systems",
+    "KGAT: Knowledge Graph Attention Network for Recommendation",
+    "Self-supervised Graph Learning for Recommendation",
+    "Challenging the Myth of Graph Collaborative Filtering: a Reasoned and Reproducibility-driven Analysis",
+]
+
 # ── Citation-intent weights ────────────────────────────────────────────────────
 # Scalar multiplier applied to each citation-intent type during graph re-ranking.
 # "background" citations are down-weighted because they are less specific;
@@ -63,3 +85,4 @@ INTENT_WEIGHTS: dict[str, float] = {
     "extension":     1.0,   # paper directly extends the cited work
     "contradiction": 1.0,   # paper disputes or contrasts findings
 }
+
