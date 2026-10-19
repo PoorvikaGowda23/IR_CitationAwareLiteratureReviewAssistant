@@ -86,3 +86,16 @@ INTENT_WEIGHTS: dict[str, float] = {
     "contradiction": 1.0,   # paper disputes or contrasts findings
 }
 
+# ── Ground-truth builder behaviour ────────────────────────────────────────────
+# Minimum corpus-present relevant IDs required to keep a query in ground truth.
+MIN_RELEVANT: int = 8
+
+# When a query row in queries.csv has an empty relevant_ids column, the fallback
+# is to use the full survey reference list from survey_refs.json.
+# Set to True  → allow the fallback (print a WARNING, then proceed).
+# Set to False → reject the query and drop it instead of using the fallback.
+ALLOW_SURVEY_FALLBACK: bool = False
+
+# Semantic Scholar stores the first-version year of a survey, but its reference list comes from the latest revision.
+YEAR_TOLERANCE: int = 3
+

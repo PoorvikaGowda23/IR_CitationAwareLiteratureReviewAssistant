@@ -581,6 +581,207 @@ def expand_corpus(
     return papers_df, edges_df, survey_refs
 
 
+# ── Step 3b: Fill missing citation edges ──────────────────────────────────────
+
+CACHE_DIR = config.DATA_DIR / "cache"
+
+
+def fetch_missing_references(
+    papers_path: Path = config.DATA_DIR / "papers.parquet",
+    edges_path: Path = config.DATA_DIR / "edges.parquet",
+    cache_dir: Path = CACHE_DIR,
+    smoke: bool = False,
+    smoke_limit: int = 50,
+) -> pd.DataFrame:
+    """Fetch missing references for papers in corpus to complete the citation graph.
+
+    Args:
+        papers_path: Path to papers.parquet.
+        edges_path:  Path to edges.parquet.
+        cache_dir:   Path to data/cache/ for caching raw S2 reference responses.
+        smoke:       If True, only process up to `smoke_limit` papers.
+        smoke_limit: Maximum papers to process in smoke mode (default: 50).
+
+    Returns:
+        Updated edges DataFrame saved to edges_path.
+    """
+    cache_dir = Path(cache_dir)
+    cache_dir.mkdir(parents=True, exist_ok=True)
+
+    papers_df = schema.load_papers(papers_path)
+    existing_edges_df = (
+        schema.load_edges(edges_path)
+        if edges_path.exists()
+        else pd.DataFrame(columns=schema.EDGES_COLS)
+    )
+
+    corpus_ids: set[str] = set(papers_df[schema.PAPER_ID].astype(str))
+    survey_ids: set[str] = set(papers_df[papers_df[schema.IS_SURVEY]][schema.PAPER_ID].astype(str))
+
+    # Candidate papers: in corpus, NOT a survey
+    candidate_df = papers_df[~papers_df[schema.IS_SURVEY]].copy()
+    candidate_ids = list(candidate_df[schema.PAPER_ID].astype(str))
+
+    # Year mapping for year_gap calculation
+    year_map: dict[str, int | None] = {
+        str(row[schema.PAPER_ID]): row.get(schema.YEAR)
+        for _, row in papers_df.iterrows()
+    }
+
+    # Statistics before
+    edges_before = len(existing_edges_df)
+    nodes_with_edges_before = set(existing_edges_df[schema.CITING_ID].astype(str)).union(
+        set(existing_edges_df[schema.CITED_ID].astype(str))
+    )
+    papers_with_edge_before = len(nodes_with_edges_before.intersection(corpus_ids))
+    share_before = (papers_with_edge_before / len(corpus_ids)) if corpus_ids else 0.0
+
+    papers_to_process = candidate_ids[:smoke_limit] if smoke else candidate_ids
+
+    mode_label = f"SMOKE mode: {len(papers_to_process)} papers" if smoke else f"FULL mode: {len(papers_to_process)} papers"
+    print(f"\n--- Step 3b: Filling Missing Edges ({mode_label}) ---")
+
+    new_edge_rows: list[dict] = []
+    papers_fetched_this_run = 0
+    total_citation_records = 0
+    records_with_context = 0
+
+    fields = "contexts,intents,isInfluential,citedPaper.paperId"
+
+    for idx, paper_id in enumerate(papers_to_process, start=1):
+        cache_file = cache_dir / f"{paper_id}_refs.json"
+        items: list[dict] | None = None
+
+        # 1. Check data/cache/
+        if cache_file.exists():
+            try:
+                with open(cache_file, "r", encoding="utf-8") as f:
+                    items = json.load(f)
+            except Exception as e:
+                log.warning("Could not read cache for %s: %s; refetching", paper_id[:8], e)
+                items = None
+
+        if items is None:
+            papers_fetched_this_run += 1
+            log.info("[%d/%d] Fetching references for %s", idx, len(papers_to_process), paper_id[:8])
+            items = []
+            offset = 0
+            limit = 100
+            while True:
+                params = {
+                    "fields": fields,
+                    "offset": offset,
+                    "limit": limit,
+                }
+                try:
+                    data = s2_get(f"{BASE_URL}/paper/{paper_id}/references", params)
+                except requests.HTTPError as e:
+                    if e.response is not None and e.response.status_code == 404:
+                        log.warning("Paper %s not found on S2 for references", paper_id[:8])
+                        break
+                    raise
+
+                page_items = data.get("data", [])
+                if not page_items:
+                    break
+                items.extend(page_items)
+                if "next" in data:
+                    offset = data["next"]
+                else:
+                    offset += len(page_items)
+                    if len(page_items) < limit:
+                        break
+
+            # Cache raw reference items
+            with open(cache_file, "w", encoding="utf-8") as f:
+                json.dump(items, f)
+
+        # Process reference items for candidate edge extraction
+        for item in items:
+            total_citation_records += 1
+            raw_contexts = item.get("contexts") or []
+            cleaned_contexts = [clean_text(ctx) for ctx in raw_contexts if ctx and clean_text(ctx)]
+            if cleaned_contexts:
+                records_with_context += 1
+
+            cited_paper = item.get("citedPaper")
+            if not cited_paper or not cited_paper.get("paperId"):
+                continue
+
+            cited_id = str(cited_paper["paperId"]).strip()
+
+            # Rule 2: Keep an edge only if cited paper is already in papers.parquet and context is non-empty
+            if cited_id not in corpus_ids:
+                continue
+            if not cleaned_contexts:
+                continue
+
+            # Rule 3: Never add edges whose citing_id is a survey
+            if paper_id in survey_ids:
+                continue
+
+            intents = item.get("intents") or []
+            s2_intent = intents[0] if intents else None
+            is_influential = bool(item.get("isInfluential", False))
+
+            citing_year = year_map.get(paper_id)
+            cited_year = year_map.get(cited_id)
+            if (
+                citing_year is not None
+                and cited_year is not None
+                and pd.notna(citing_year)
+                and pd.notna(cited_year)
+            ):
+                year_gap = int(citing_year) - int(cited_year)
+            else:
+                year_gap = 0
+
+            for ctx in cleaned_contexts:
+                new_edge_rows.append({
+                    schema.CITING_ID: paper_id,
+                    schema.CITED_ID: cited_id,
+                    schema.CONTEXT_SENTENCE: ctx,
+                    schema.S2_INTENT: s2_intent,
+                    schema.IS_INFLUENTIAL: is_influential,
+                    schema.YEAR_GAP: year_gap,
+                })
+
+    # Merge with existing edges and deduplicate on (citing_id, cited_id, context_sentence)
+    if new_edge_rows:
+        new_edges_df = pd.DataFrame(new_edge_rows)
+        merged_edges = pd.concat([existing_edges_df, new_edges_df], ignore_index=True)
+    else:
+        merged_edges = existing_edges_df.copy()
+
+    if not merged_edges.empty:
+        merged_edges = merged_edges.drop_duplicates(
+            subset=[schema.CITING_ID, schema.CITED_ID, schema.CONTEXT_SENTENCE]
+        ).reset_index(drop=True)
+
+    # Save merged edges back to edges.parquet
+    schema.save_edges(merged_edges, edges_path)
+
+    # Calculate after statistics
+    edges_after = len(merged_edges)
+    nodes_with_edges_after = set(merged_edges[schema.CITING_ID].astype(str)).union(
+        set(merged_edges[schema.CITED_ID].astype(str))
+    )
+    papers_with_edge_after = len(nodes_with_edges_after.intersection(corpus_ids))
+    share_after = (papers_with_edge_after / len(corpus_ids)) if corpus_ids else 0.0
+    context_pct = (records_with_context / total_citation_records * 100) if total_citation_records else 0.0
+
+    print("\n================ STEP 3b SUMMARY ================")
+    print(f"Papers fetched this run:                     {papers_fetched_this_run}")
+    print(f"Edges before:                                {edges_before}")
+    print(f"Edges after:                                 {edges_after} (+{edges_after - edges_before})")
+    print(f"Citation records with context:               {records_with_context}/{total_citation_records} ({context_pct:.1f}%)")
+    print(f"Share of papers with >= 1 edge (before):     {share_before:.1%} ({papers_with_edge_before}/{len(corpus_ids)})")
+    print(f"Share of papers with >= 1 edge (after):      {share_after:.1%} ({papers_with_edge_after}/{len(corpus_ids)})")
+    print("=================================================\n")
+
+    return merged_edges
+
+
 # ── Main block ─────────────────────────────────────────────────────────────────
 
 def main() -> None:
@@ -589,14 +790,23 @@ def main() -> None:
     parser.add_argument(
         "--smoke",
         action="store_true",
-        help="Smoke-test mode: 5 search papers per query, expand 5 seeds.",
+        help="Smoke-test mode: 5 search papers per query, expand 5 seeds (or 50 papers for --fill-missing-edges).",
     )
     parser.add_argument(
         "--seeds-only",
         action="store_true",
         help="Only search seed papers and save seed_papers.parquet without 1-hop expansion.",
     )
+    parser.add_argument(
+        "--fill-missing-edges",
+        action="store_true",
+        help="Step 3b: fetch missing references between corpus papers to complete edges.parquet.",
+    )
     args = parser.parse_args()
+
+    if args.fill_missing_edges:
+        fetch_missing_references(smoke=args.smoke)
+        return
 
     seed_file = config.DATA_DIR / "seed_papers.parquet"
 
