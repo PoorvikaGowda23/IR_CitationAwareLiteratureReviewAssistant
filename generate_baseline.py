@@ -38,7 +38,7 @@ import config  # noqa: F401  (side-effect: loads .env)
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 GROQ_API_KEY_ENV: str = "GROQ_API_KEY"
-DEFAULT_GROQ_MODEL: str = "llama-3.3-70b-versatile"
+DEFAULT_GROQ_MODEL: str = "openai/gpt-oss-120b"
 CACHE_DIR: Path = config.RESULTS_DIR / "review_cache"
 _S2_TAG_RE: re.Pattern[str] = re.compile(r"\[S2:([^\]]+)\]")
 _SENT_SPLIT_RE: re.Pattern[str] = re.compile(r"(?<=[.!?])\s+")
@@ -348,7 +348,7 @@ def generate_review(
         _save_cache(cache_dir, cache_key, review_text)
         if verbose:
             print(
-                f"[generate_baseline] Cached → "
+                f"[generate_baseline] Cached -> "
                 f"{cache_dir / (cache_key + '.json')}"
             )
 
@@ -375,6 +375,10 @@ def generate_review(
 # ── CLI entrypoint ─────────────────────────────────────────────────────────────
 
 def main() -> None:
+    # ── Force UTF-8 output so LLM Unicode chars don't crash cp1252 terminals ──
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")  # type: ignore[attr-defined]
+
     parser = argparse.ArgumentParser(
         description="Step 14a: Baseline literature review generator (Groq LLM)"
     )
