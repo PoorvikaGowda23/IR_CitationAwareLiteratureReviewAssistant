@@ -1,0 +1,31 @@
+{
+  "NOTE": "Hand-labelled extension/contradiction/other data. Separate from SciCite (background/method/result); NOT comparable to the other classifiers.",
+  "macro_f1": 0.662184,
+  "per_class": {
+    "extension": {
+      "precision": 0.5,
+      "recall": 0.38,
+      "f1-score": 0.414286,
+      "support": 14
+    },
+    "contradiction": {
+      "precision": 0.699286,
+      "recall": 0.697857,
+      "f1-score": 0.647653,
+      "support": 34
+    },
+    "other": {
+      "precision": 0.915284,
+      "recall": 0.93613,
+      "f1-score": 0.924614,
+      "support": 252
+    }
+  },
+  "n_folds": 5,
+  "label_counts": {
+    "other": 252,
+    "contradiction": 34,
+    "extension": 14
+  },
+  "model": "SciBERT step-9 checkpoint + new 3-class head"
+}

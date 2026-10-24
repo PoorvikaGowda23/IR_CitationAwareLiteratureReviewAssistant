@@ -38,8 +38,8 @@ METRICS_PATH     = RESULTS_DIR / "tfidf_intent.json"
 EDGES_PATH       = DATA_DIR / "edges.parquet"
 EDGES_PRED_PATH  = DATA_DIR / "edges_pred.parquet"
 
-# SciCite label order  (int -> str)
-LABEL_NAMES = ["background", "method", "result"]
+# SciCite label order  (int -> str); matches the HF ClassLabel(names=['method','background','result'])
+LABEL_NAMES = ["method", "background", "result"]
 
 
 # Data loading
@@ -612,6 +612,243 @@ def apply_to_corpus(
 
 
 # =============================================================================
+# Step 17b: extended intent classes (extension / contradiction / other)
+# These labels come from ~300 HAND-LABELLED edges, NOT from SciCite, so the
+# metrics below are not comparable with tfidf_intent.json / scibert_intent.json.
+# =============================================================================
+
+EXT_LABELS        = ["extension", "contradiction", "other"]
+HAND_LABELS_PATH  = DATA_DIR / "hand_labels.parquet"
+EXT_CKPT_DIR      = DATA_DIR / "extended_intent"          # final model fit on all labels
+EXT_METRICS       = RESULTS_DIR / "extended_intent.json"
+EXT_MIN_CONTRA    = 15    # warn if fewer contradiction examples than this
+EXT_FOLDS         = 5
+EXT_EPOCHS        = 8     # more epochs than SciCite: tiny, imbalanced data
+
+
+def _fit_extended(texts, label_ids, epochs=EXT_EPOCHS, seed=SEED):
+    """
+    Fine-tune a fresh 3-class head on top of the step-9 SciBERT checkpoint.
+
+    Args:
+        texts:     list[str] training sentences.
+        label_ids: list[int] indices into EXT_LABELS.
+        epochs:    training epochs.
+        seed:      random seed.
+
+    Returns:
+        (model, tokenizer, device) with the model in eval mode.
+    """
+    torch = _import_torch()
+    from torch.utils.data import DataLoader
+    from torch.optim import AdamW
+    AutoTokenizer, AutoModelForSequenceClassification, get_linear_schedule_with_warmup = _import_transformers()
+
+    torch.manual_seed(seed)                                   # reproducible head init + shuffling
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    tokenizer = AutoTokenizer.from_pretrained(str(SCIBERT_CKPT_DIR))
+    model = AutoModelForSequenceClassification.from_pretrained(
+        str(SCIBERT_CKPT_DIR), num_labels=len(EXT_LABELS)
+    )
+    # The step-9 head is also 3-way (background/method/result), so its shape matches
+    # and would be loaded silently. Re-initialise it so only the encoder is reused.
+    torch.nn.init.normal_(model.classifier.weight, std=0.02)
+    torch.nn.init.zeros_(model.classifier.bias)
+    model.to(device)
+
+    enc    = _tokenize(tokenizer, texts)
+    loader = DataLoader(CitationDataset(enc, label_ids), batch_size=SCIBERT_BATCH, shuffle=True)
+    optimizer = AdamW(model.parameters(), lr=SCIBERT_LR, weight_decay=0.01)
+    total_steps = len(loader) * epochs
+    scheduler = get_linear_schedule_with_warmup(
+        optimizer, math.ceil(total_steps * SCIBERT_WARMUP), total_steps
+    )
+
+    # Inverse-frequency class weights so rare classes are not drowned out by "other"
+    counts = torch.bincount(torch.tensor(label_ids), minlength=len(EXT_LABELS)).float()
+    weights = (counts.sum() / (len(EXT_LABELS) * counts.clamp(min=1))).to(device)
+    loss_fn = torch.nn.CrossEntropyLoss(weight=weights)
+
+    model.train()
+    for _ in range(epochs):
+        for batch in loader:
+            batch = {k: v.to(device) for k, v in batch.items()}
+            labels = batch.pop("labels")                      # keep labels out of the model call
+            loss = loss_fn(model(**batch).logits, labels)     # weighted cross-entropy
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            optimizer.step()
+            scheduler.step()
+            optimizer.zero_grad()
+    model.eval()
+    return model, tokenizer, device
+
+
+def _predict_extended(model, tokenizer, device, texts, batch_size=64):
+    """
+    Predict EXT_LABELS for texts with an already-loaded model.
+
+    Args:
+        model, tokenizer, device: as returned by _fit_extended / loaded from disk.
+        texts:      list[str] sentences.
+        batch_size: inference batch size.
+
+    Returns:
+        (labels, confidences): list[str] and list[float] (softmax prob of the label).
+    """
+    torch = _import_torch()
+    from torch.utils.data import DataLoader
+    enc    = _tokenize(tokenizer, texts)
+    loader = DataLoader(CitationDataset(enc, [0] * len(texts)), batch_size=batch_size)
+    labels, confs = [], []
+    with torch.no_grad():
+        for batch in loader:
+            batch.pop("labels")                               # dummy labels, not needed
+            batch = {k: v.to(device) for k, v in batch.items()}
+            probs = torch.softmax(model(**batch).logits, dim=-1)
+            top_p, top_i = probs.max(dim=-1)
+            labels.extend(EXT_LABELS[i] for i in top_i.cpu().tolist())
+            confs.extend(top_p.cpu().tolist())
+    return labels, confs
+
+
+def train_extended(n_folds=EXT_FOLDS, epochs=EXT_EPOCHS, smoke=False):
+    """
+    Cross-validate (and then save) a 3-class extension/contradiction/other model.
+
+    Reads data/hand_labels.parquet, runs seeded stratified k-fold CV starting from
+    the step-9 SciBERT checkpoint, averages per-class P/R/F1 over folds, saves them
+    to results/extended_intent.json, then refits on ALL labels and saves the model
+    to data/extended_intent/ for apply_extended().
+
+    Args:
+        n_folds: number of CV folds (default 5).
+        epochs:  epochs per fit.
+        smoke:   if True, use 20 rows, 2 folds, 1 epoch and do not save the final model.
+
+    Returns:
+        metrics dict (also written to results/extended_intent.json).
+    """
+    import numpy as np
+    import pandas as pd
+    from sklearn.metrics import classification_report
+    from sklearn.model_selection import StratifiedGroupKFold
+
+    df = pd.read_parquet(HAND_LABELS_PATH)
+    counts = df["label"].value_counts().to_dict()
+    print(f"Hand-label counts: {counts}")
+    if counts.get("contradiction", 0) < EXT_MIN_CONTRA:
+        print(f"WARNING: only {counts.get('contradiction', 0)} contradiction examples "
+              f"(< {EXT_MIN_CONTRA}); contradiction metrics will be very noisy.")
+
+    if smoke:                                                 # tiny, stratified-ish sample
+        df = df.groupby("label", group_keys=False).head(7)
+        n_folds, epochs = 2, 1
+    if df["label"].value_counts().min() < n_folds:
+        raise ValueError(f"Smallest class has fewer than {n_folds} examples; "
+                         f"cannot run {n_folds}-fold stratified CV.")
+
+    texts = df["context_sentence"].astype(str).tolist()
+    y     = np.array([EXT_LABELS.index(l) for l in df["label"]])
+
+    per_fold = []                                             # one classification_report per fold
+    # Identical sentences share a group id so they never straddle train and validation
+    groups = pd.factorize(df["context_sentence"].astype(str).str.strip().str.lower())[0]
+    skf = StratifiedGroupKFold(n_splits=n_folds, shuffle=True, random_state=SEED)
+    for fold, (tr, va) in enumerate(skf.split(texts, y, groups), 1):
+        print(f"Fold {fold}/{n_folds}: train={len(tr)} val={len(va)}")
+        model, tok, dev = _fit_extended([texts[i] for i in tr], y[tr].tolist(), epochs)
+        preds, _ = _predict_extended(model, tok, dev, [texts[i] for i in va])
+        per_fold.append(classification_report(
+            [EXT_LABELS[i] for i in y[va]], preds,
+            labels=EXT_LABELS, output_dict=True, zero_division=0,
+        ))
+        del model                                             # free memory before next fold
+
+    def _mean(cls, key):                                      # average one metric over folds
+        return round(float(np.mean([r[cls][key] for r in per_fold])), 6)
+
+    metrics = {
+        "NOTE": "Hand-labelled extension/contradiction/other data. Separate from "
+                "SciCite (background/method/result); NOT comparable to the other classifiers.",
+        "macro_f1": _mean("macro avg", "f1-score"),
+        "per_class": {
+            c: {"precision": _mean(c, "precision"), "recall": _mean(c, "recall"),
+                "f1-score": _mean(c, "f1-score"),
+                "support": int(sum(r[c]["support"] for r in per_fold))}
+            for c in EXT_LABELS
+        },
+        "n_folds": n_folds,
+        "label_counts": counts,
+        "model": "SciBERT step-9 checkpoint + new 3-class head",
+    }
+    print("\n*** Extended-class results (hand labels; NOT SciCite) ***")
+    print(json.dumps(metrics, indent=2))
+    if smoke:
+        return metrics                                        # do not overwrite real outputs
+
+    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    EXT_METRICS.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    print(f"Metrics saved -> {EXT_METRICS}")
+
+    model, tok, _ = _fit_extended(texts, y.tolist(), epochs)  # final model on all data
+    EXT_CKPT_DIR.mkdir(parents=True, exist_ok=True)
+    model.save_pretrained(EXT_CKPT_DIR)
+    tok.save_pretrained(EXT_CKPT_DIR)
+    print(f"Final model saved -> {EXT_CKPT_DIR}")
+    return metrics
+
+
+def apply_extended(edges_pred_path=EDGES_PRED_PATH, smoke=False, smoke_n=20):
+    """
+    Add ext_intent and ext_confidence to edges_pred.parquet.
+
+    Runs the extended model on every edge whose predicted_intent is background,
+    method or result. Other rows get None/NaN. Existing columns are never changed.
+
+    Args:
+        edges_pred_path: parquet to read and update in place.
+        smoke:           if True, score only the first smoke_n eligible edges and do
+                         not write the file.
+        smoke_n:         number of edges in smoke mode.
+
+    Returns:
+        The DataFrame with the two new columns.
+    """
+    import numpy as np
+    import pandas as pd
+    torch = _import_torch()
+    AutoTokenizer, AutoModelForSequenceClassification, _ = _import_transformers()
+
+    df = pd.read_parquet(edges_pred_path)
+    eligible = df["predicted_intent"].isin(LABEL_NAMES)       # background / method / result
+    idx = df.index[eligible]
+    if smoke:
+        idx = idx[:smoke_n]
+
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    tok   = AutoTokenizer.from_pretrained(str(EXT_CKPT_DIR))
+    model = AutoModelForSequenceClassification.from_pretrained(str(EXT_CKPT_DIR)).to(device).eval()
+
+    texts = df.loc[idx, "context_sentence"].fillna("").astype(str).tolist()
+    labels, confs = _predict_extended(model, tok, device, texts)
+
+    df["ext_intent"]     = None                               # new columns only
+    df["ext_confidence"] = np.nan
+    df.loc[idx, "ext_intent"]     = labels
+    df.loc[idx, "ext_confidence"] = [round(float(c), 6) for c in confs]
+
+    print(df.loc[idx, "ext_intent"].value_counts().to_string())
+    if smoke:
+        print("[SMOKE] file not written.")
+    else:
+        df.to_parquet(edges_pred_path, index=False)
+        print(f"Saved ext_intent/ext_confidence -> {edges_pred_path}")
+    return df
+
+
+# =============================================================================
 # Entry point
 # =============================================================================
 
@@ -656,9 +893,23 @@ if __name__ == "__main__":
         help=f"SciBERT checkpoint directory (default: {SCIBERT_CKPT_DIR}). "
              "Set to a Google Drive path in Colab, e.g. /content/drive/MyDrive/scibert_intent",
     )
+    parser.add_argument(
+        "--train-extended", action="store_true",
+        help="Step 17b: 5-fold CV + final fit of the extension/contradiction/other model.",
+    )
+    parser.add_argument(
+        "--apply-extended", action="store_true",
+        help="Step 17b: add ext_intent/ext_confidence to edges_pred.parquet.",
+    )
     args = parser.parse_args()
 
-    if args.apply:
+    if args.train_extended:
+        train_extended(smoke=args.smoke)
+
+    elif args.apply_extended:
+        apply_extended(edges_pred_path=args.output_path, smoke=args.smoke, smoke_n=args.smoke_n)
+
+    elif args.apply:
         # ── Step 10: Apply to corpus edges ────────────────────────────────────
         apply_to_corpus(
             edges_path=args.edges_path,

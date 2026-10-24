@@ -1,0 +1,301 @@
+edge_id,context_sentence,label
+891,"Similar to most graph-based models [6], [43], PGNN is suitable for the scenarios that the user repeatedly click the same items within sessions or across sessions.",other
+606,"With their proposed neural graph collaborative filtering (NGCF) method, the collaborative signal conveyed by the edges and high-order connectivity explicit modelled and injected into each user and item embedding.",other
+870,"Subsequently, researchers have implemented methods combining convolutional neural networks [8] and graph neural networks [9] with session-based recommendation, enriching the capture of complex interactions within sessions and improving performance.",other
+1050,"Information 2020 , 11 , 388 We can observe that both the original scheme and variant scheme outperform SR-GNN, which verifies the effectiveness of KB knowledge, and the original connection scheme outperforms the variant connection scheme.",other
+1322,"Most models approach the recommendation task under a supervised learning paradigm [17, 19, 32], where the supervision signal comes from the observed user-item interactions.",other
+1630,"Therefore, G 3 SR can be ﬂexibly combined with both GC-SAN and GCE-GNN.",other
+246,"These methods can capture the intricate relationships between users and items thus modeling the collaborative patterns [12], [48].",other
+1251,"The IHDT model thus offers interactive modeling of user products and graph-based high-order feature learning, and as such provides new ideas for large-scale recommendation systems considering both accuracy and diversity.",other
+1744,"GIN outperforms DIN, demonstrating that introducing the item-item co-occurrence graph can alleviate the behavior sparsity problem.",other
+1698,Wang et al. (2020a) considers user-item relationships at the ﬁner granularity of user’s intents and generates disentangled representations.,other
+968,"5) SR-GNN [Wu et al., 2019]: Currently, there is no existing GNN-based next POI recommenders.",other
+583,"However, due to the lack of explicit encoding CF signals, which reveal behavior similarity of users/items, high order connectivity is hard to be captured[37].",contradiction
+1801,The two components are the key parts of our used GCN. Letus review the layer-wise propagation rule [31] of GCN.,other
+1357,paths or implicitly modeling them with regularization. Empirical results on three public benchmarks show that KGAT significantly outperforms state-of-the-art methods like Neural FM [11] and RippleNet [29]. Further studies verify the efficacy of embedding propagation for high-order relation modeling and the interpretability benefits brought by the attention mechanism. We release the codes and datasets,other
+393,"To mitigate overfitting in FourierKAN-GCF, we employ message dropout and node dropout strategies, similar to NGCF [18].",other
+1261,*SGL is not classifiable on the Gowalla dataset as results were not calculated in the original paper [78].,other
+1810,"To overcome overfitting and popularity bias, NISER+ [13] uses normalized items and session embeddings on top of SR-GNN.",other
+220,NGCF [7] generates hop-by-hop propagation classes in the input graph under the assumption that the effect of the users varies depending on the distance between the graph’s vertices.,other
+1469,"exploit a graph convolution operation on the spatial domain, which aggregates the embeddings of neighbors to refine the embedding of the target node [3], [23].",other
+1677,first define the session-based recommendation problem which aims to recommend the next item based on an anonymous session and they propose the GRU4Rec model [9] based on recurrent neural networks.,other
+1723,"• GCNBG (Berg, Kipf, and Welling 2017): The GCN method is applied to the user-bundle graph.",other
+1463,"tability and efficiency, it quickly becomes a prevalent formulation of GNNs and is being widely used [11, 29, 47]. Motivated by the strength of graph convolution, recent efforts like NGCF [39], GC-MC [35], and PinSage [45] adapt GCN to the user-item interaction graph, capturing CF signals in high-hop neighbors for recommendation. It is worth mentioning that several recent efforts provide deep insights",other
+934,", we adopt a similar way to construct training examples as [20], [48].",other
+1126,Dynamic attention embedding dissemination layer is an architecture based on the graph convolution network 26 .,other
+263,"Recently, CF models based on graph neural networks (GNNs) have achieved exceptional performance and become the dominant paradigm for recommender systems (He et al. 2020; Mao et al. 2021; Wang et al. 2019).",other
+40,"GC-MC [29] applies the graph convolution network (GCN) [18] on user-item graph, however it only employs one convolutional layer to exploit the direct connections between users and items.",contradiction
+1201,"a user-item interaction as an isolated data instance [12, 28] or uniformly organize it as an edge in the interaction graph [10, 36, 40]",other
+82,EarlyworkssuchasNGCF[16]andLight-GCN [17] demonstrated that iterative neighbor aggregation or simpliﬁed graph convolution can signiﬁcantly improve performance compared with traditional collaborative ﬁltering.,other
+742,"This is different from most existing graph convolution operations [14, 23, 36, 39, 48] that typically aggregate extended neighbors and need to handle the self-connection specially.",contradiction
+1597,"As the most classic representation-based methods, matrix factorization methods [50, 51] are designed to handle the data sparsity problem with dimensionality reduction.",other
+173,NGCF [6] extends BPR by capturing high-order user-item interactions via graph neural networks.,extension
+69,"Following the prior work [29], we employ node dropout and message dropout techniques to prevent NGCF from overfitting.",other
+820,"Even so, the S-POP still outperforms its opponents such as POP, BPR-MF, and FPMC, demonstrating the importance of session contextual information.",other
+875,"However, existing studies have shown that traditional methods are not sufficient to capture rich and nuanced embeddings [7, 8].",contradiction
+779,"…network (RNN) has been the most successful one in modeling sentences (Mikolov et al. 2010) and has been flourishingly applied in various natural language processing tasks, such as machine translation (Cho et al. 2014), conversation machine (Serban et al. 2016), and image caption (Mao et al. 2015).",other
+1946,"For sequential methods, we search the maximum length of sequence in [50, 100], number of layers from [1, 2, 3], and number of heads in [1, 2, 4].",other
+1519,"However, since graph convolution is time-consuming for large graphs, Kipf and Welling (2017) simplified it by fixing the kernel into a 1-order polynomial, thus GCNs lose the ability of extracting features and only propagate embeddings through the graph.",contradiction
+668,"As such, we establish a set of intent-aware graphs G = {G1, · · · ,GK } to present diverse user-item relationships, instead of a uniform one adopted in prior works [10, 36, 40].",other
+1049,"Thirdly, our model outperforms SR-GNN, demonstrating the power of adopting semantic-enhanced memory networks in this domain.",other
+1121,"According to the specific model architecture of GNN, GNN approaches for SBRSs can be generally divided into three classes: Gated Graph Neural Networks (GGNN), Graph Convolutional Networks (GCN) and Graph ATtention networks (GAT).",other
+298,"They ﬁrst proposed NGCF (neural graph collaborative ﬁltering [5]) to exploit injecting the collaborative information between user items into the embedding representation of users and items learned by GCN, and they utilized high-order connectivity of user item interactions to build the neural graph…",other
+1959,"Following the same experimental settings in [16, 17], the leave-one-out evaluation is leveraged for training and test set partition.",other
+844,"We report three commonly used evaluation metrics in our experiments [11, 39]: • Reward@ 𝐾 : This metric calculates the average reward for each user while testing.",other
+1048,"To further discuss the inﬂuence of varying amounts of training data on the experiment, we split the ml-20m From the figure, it is obvious that our model consistently outperforms SR-GNN with two evaluation metrics, and as the amount of data increases, the values of two evaluation metrics are improved significantly, which indicates that data sparsity negatively impacts performance, and using a hybrid of current and global interests and incorporating KB knowledge can improve the performance of the model.",other
+464,"Therefore, it is easy to stack multiple layers to learn both the firstorder and high-order collaborative signals [7, 41].",other
+1470,"To the end, we are inspired by the prior studies [2], [3] and develop a new aggregation to explicitly model the local structure information in Hamming space, which reveals the first-order Hamming similarity.",extension
+1226,"Besides, some studies [27] further propose to construct more interaction graphs to capture more rich association relations among users and items.",other
+1247,"The IHDT model thus offers interactive modeling of user products and graph-based high-order feature learning, and as such provides new ideas for large-scale recommendation systems considering both accuracy and diversity.",other
+1509,"Following Kipf and Welling (2017), most existing GCNs (Wang et al. 2019; Ying et al. 2018; Berg, Kipf, and Welling 2018; He et al. 2020) become GNNs or the variants.",other
+1369,"we set the activation function set as LeakyReLU [20]; W ∈Rd′×d are the trainable weight matrices to distill useful information for propagation, and d′is the transformation size. •GraphSage Aggregator [9] concatenates two representations, followed by a nonlinear transformation: fGraphSage = LeakyReLU W(eh||eN h ) , (7) where ||is the concatenation operation. •Bi-Interaction Aggregator is carefully",other
+1672,the GRU4REC [9] model for each other method.,other
+317,These models leverage graph convolutional processes to extract meaningful graph information from user-item behavior graphs progressively gathering information from distant neighbors within the user/item subgraphs [8]–[10].,other
+205,"To address this limitation, PINSAGE [5] and NGCF [6] follow the similar propagation rules as classical GCN, stacking multiple graph convolution layers to extend the depth of GCN.",other
+1763,The agent can sense the global structure of proximity graph by GCN.,other
+1819,"Recurrent neural networks (RNNs) [16– 18] and attention mechanisms [31, 32] have been used to model the sequential dependency of items.",other
+1132,"With the rise of graph neural networks [37], there has been a similar trend of studies in the recommendation field.",other
+1705,"• BGCN (Chang et al. 2020): BGCN proposes a graph neural network model to explicitly model complex relations between users, items, and bundles.",other
+1054,"Some methods utilize GNN to encode the session information to prevent the misguidance of the session order [22, 23, 38, 39].",other
+915,"Still, learning directly from the global graph is highly challenging since it introduces additional relational information together with noises that are irrelevant to the current session and this can severely downgrade the performance as shown in [12].",other
+1814,"Nonetheless, S-Walk significantly outperforms NISER+ [13] in long sessions by 6.",other
+1680,"Note that, node2vec degenerates to DeepWalk [55] when p = q = 1, as all the neighborhood nodes are sampled with equal probability.",other
+1545,"However, in recommendation scenarios, the graph construction plays an essential role in the inal performance [114].",other
+1012,"…et al. 2020; Yin et al. 2019) has been reported in many areas including SBR. Unlike the RNNs-based recommendation method, the GNNs-based approaches (Wu et al. 2019b; Xu et al. 2019; Qiu et al. 2020b) model session-based data as directed subgraphs and item transitions as pairwise relations, which…",other
+507,• NGCF [11]: It is a graph neural collaborative ﬁltering model to project users and items into latent representations over the structure of user-item interaction graph.,other
+874,"Several GNN-based approaches, such as SR-GNN [6] and HIDE [7], have shown excellent performance by using multiple graph convolutional mechanisms to spread sequential prefernces.",other
+960,"Unlike their previous work [19, 32], they mainly focused on the last item of the session.",contradiction
+1308,"However, the recent literature [2, 3, 15, 16, 96] has raised several concerns about usually-untested strong CF baselines, such as nearest-neighborhood approaches (e.g., UserkNN [56] and ItemkNN [57]), random-walk techniques (e.g., RP3𝛽 [49]), and other autoencoder-based solutions (e.g., EASE𝑅 [61]).",other
+1923,"This is a generalized definition compared with other works [12, 28].",other
+1135,"This shows that this part can bring valuable information about interaction. d) Nonlinear operation only brings a small positive effect. e) NGCF outperforms LightGCN on the MOOC dataset verifying that NGCF has better representation power than LightGCN, but the training is more difficult [7].",other
+1284,"In recent years, great effort has been devoted in creating GNN-based models that address the critical issues of existing models, such as the over-smoothing phenomenon [12] and scalability issues [87].",other
+1775,"It’s easy to see that GCN will utilize the global information (i.e., Ã and D̃ in Equation (4)) of the graph during the forward propagation.",other
+655,"Nonetheless, because of the small scale of the dataset coupled with the low proportion of the training data, NGCF easily suffers from the overfitting problem and yields inferior performance.",contradiction
+2009,"NARM [10] employed the attention mechanism with RNN to learn the more representative item-transition information for session-based recommendation, an approach which has been proved to be effective for learning session representations.",other
+1543,"Many GNN-based recommendation models [30, 33, 84] have emerged recently due to the fast development of GNNs.",other
+73,"To address this limitation, NGCF [12] introduced a message-passing mechanism via Graph Neural Networks to explicitly model high-order collaborative signals.",other
+376,"In this article, we will compare the following baseline methods: MF-BPR [1], NeuCF [18], IngreNet [19], GAT [9], HAN [20], and NGCF [21].",other
+1300,"In terms of relative improvements, we observe large performance differences mainly on the Amazon Book setting.",other
+1861,GCE-GNN [38] aggregates item information from both item-level and session-level through graph convolution and self-attention mechanism.,other
+713,"For easy to follow, we summarize them into two categories according to whether they can model the interand intra-sequence item correlation, namely (1) only intrasequence based methods: GRU4Rec (Hidasi et al. 2016), Caser (Tang and Wang 2018), SASRec (Kang and McAuley 2018), SR-GNN (Wu et al. 2019) and HGN (Ma, Kang, and Liu 2019); (2) both inter- and intra-sequence based methods: FPMC (Rendle, Freudenthaler, and Schmidt-Thieme 2010), Fossil (He and McAuley 2016) and CSRM (Wang et al. 2019a).",other
+1951,[41] learns price-aware purchase intent of users with a GCN-based architecture.,other
+1637,"propose STAMP [11] based on simple MLP network, which is capable of capturing users’ long-term interests as well as their short-term attention.",other
+1752,"Learning to search is widely used for solving structured prediction problems like Part of Speech Tagging [9], Machine Translation [48], Scene Labelling [12], recommendation systems [41, 61] and so on.",other
+98,"In [20], NGCF extends the message passing mechanism of traditional GNNs and simultaneously aggregates information from different orders neighbors.",extension
+581,"Then, we visualize node embeddings of DisenHAN and NGCF to conduct a qualitative assessment of the embedding results. aspects, user-item interaction is related to aspect A1 in Layer-1.",other
+1584,"Deep recommender systems [15, 19] typically have four components.",other
+1373,"• GC-MC [26]: Such model is designed to employ GCN [17] encoder on graph-structured data, especially for the user-item bipartite graph.",other
+885,"[18] uses the Gated Graph Neural Network (GGNN) [19] to model the local dependency in session-based recommendation, which is highly related to our work.",other
+1221,"From this table, we can observe that the proposed method can consistently improve the performance of NGCF, DGCF, and LightGCN, which further verifies the effectiveness of the proposed method.",other
+634,"Moreover, GLS-GRL outperforms SG-GNN and NGCF in most value cases of 𝛼 , and its optimal results are significantly the best.",other
+1008,"Unlike the RNNs-based recommendation method, the GNNs-based approaches (Wu et al. 2019b; Xu et al. 2019; Qiu et al. 2020b) model session-based data as directed subgraphs and item transitions as pairwise relations, which slightly relaxes the assumption of temporal dependence between consecutive items.",other
+1156,"Moreover, inspired by recent SGC [43] and LightGCN [10], we argue that nonlinear transformation adopted by prior works [36,",extension
+1423,"It is worth mentioning that several recent efforts provide deep insights into GNNs [24, 27, 40], which inspire us developing LightGCN.",extension
+1471,"Towards this end, existing studies [1], [2], [3] tend to follow a two-stage pipeline: representing the users and items with vectors [4], and then predicting their interactions by measuring the similarities",other
+1435,"Later on, GraphSage [14] and GCN [23] re-define graph convolution in the spatial domain, i.",other
+1706,"Chang et al. (2020) unify user-bundle-item afﬁliation into a heterogeneous graph and uses graph convolution networks (GCN) to learn the user and bundle’s representation, capturing item level semantics, however these works may neglect the diversity of the user’s intents on adopting items and fail to…",contradiction
+190,"Unlike other methods, we focus only on the high-order relationships and weights between items [26].",contradiction
+1542,"Diferent recommendation tasks such as social recommendation [126, 127], sequential recommendation [30, 116], POI recommendation [67], and multi-modality recommendations [101] have diferent data inputs.",other
+326,"In dataset preprocessing, following the standard practice in Wang et al. [55], we use 10-core setting [66], i.e., all users and items have at least 10 interactions.",other
+120,"…it with a variety of graph-based baselines, encompassing both unsigned and signed graph models. a) Unsigned graph recommendation methods 1) NGCF [31] : A pioneering graph-based collaborative ﬁltering model that integrates GNN message passing into the user–item interaction graph to capture…",other
+74,"Specifically, ID-based GCF models explicitly capture high-order collaborative signals via multi-hop message passing [12].",other
+260,"…(Wu et al. 2022; Gao et al. 2022a; Kipf and Welling 2016; Wang et al. 2019)) in capturing complex connections between users and items, GNN-based recommenders including LightGCN (He et al. 2020), NGCF (Wang et al. 2019), LCF (Yu and Qin 2020), and APDA (Zhou et al. 2023) have gained prominence.",other
+59,"• MF [26]: This is matrix factorization optimized by the Bayesian personalized ranking (BPR) loss, which exploits the user-item direct interactions only as the target value of interaction function.",other
+1029,"Multi-layer GNNs have subsequently been employed to propagate information between items without direct connections; however, they easily lead to overfitting as multiple authors have pointed out [19, 34].",contradiction
+568,"Inspired by the promising results of graph neural network in learning dependence of graph structured data [32], [44], another research line seeks to capture the user-item relationships with graph neural networks [30], [41], [46].",other
+352,"Recently, Graph Neural Networks (GNNs) [11, 31, 36, 46] have gained prominence in collaborative filtering for their ability to capture indirect and non-obvious linkages between users and items, resulting in effective user and item representations in recommendation scenarios.",other
+1595,"Inspired by FM [89], the time complexity is reduced from O (F ) to O (F ), owning to feature interaction calculation method within one feature set F p j .",extension
+1253,"[10, 13, 32, 62, 77, 84] [19, 39, 46, 74, 75, 92] [40, 54, 78, 82, 88, 89] [22, 46, 77, 82, 85, 93] [17, 24, 42, 48, 95, 96] [4, 5, 41, 50, 80, 96]",other
+1108,"However, to the best of our knowledge, this is the first attempt to study and address popularity bias in DNN-based SR using SR-GNN [14] as a working example.",other
+141,"Building on these foundations, lightweight GCN-family designs tailored for recommendation (e.g., simplifying transformations and emphasizing pure neighborhood aggregation) have shown strong performance on implicit-feedback interaction graphs [12], [16], [23].",other
+1589,"Over the last several years, the primary model framework of recommender systems has been developed from neighborhood techniques [2, 58, 93] to representation learning [19, 50, 51, 94, 107].",other
+1938,We conduct our experiments on four Amazon review datasets [29] and MovieLens ML-100K dataset [6].,other
+1155,"We then apply an graph disentangling module equipped with neighbor routing [25, 29] and embedding propagation [9, 18, 39, 40] mechanisms.",other
+623,"Since user-item propagation layer learns user embedding p∗ u and item embedding q∗ i from user-item interaction directly, we can calculate a user-based score with p∗ u and q∗ i [27, 37], which is called user-based score.",other
+1165,"Many recommenders, such as NCF [12], CMN [7], and LRML [35] resort to this paradigm.",other
+279,NGCF [24]: Graph neural network recommendation algorithm uses graph convolution network to model user project interaction graph to generate recommendations.,other
+804,"Short/long-term memory models, like GRU4REC and NARM, use recurrent units to capture a user’s general interest while STAMP improves the short-term memory by utilizing the last-clicked item.",other
+1425,"h has shown to outperform several methods including GCNbased models GC-MC [33] and PinSage [46], neural network-based models NeuMF [18] and CMN [8], and factorization-based models MF [30] and HOP-Rec [44]. As the comparison is done on the same datasets under the same evaluation protocol, we do not further compare with these methods. In addition to NGCF, we further compare with two relevant and competi",other
+1282,"While early attempts focused on simple aggregation methods [68, 87], recent solutions have advanced the field by exploring the inter-dependencies between nodes and their neighbors [71], designing simplified versions of the graph convolutional layer [14, 28] and learning multiple nodes’ views [78, 89] augmented via self-supervised and contrastive learning to improve model accuracy.",other
+594,"In traditional GNN models, such as NGCF [29] and KGAT [18], nodes propagate and aggregate integral or partial information from heterogeneous neighbors indiscriminately, shown in Figure 3(a).",other
+591,• NGCF [29] is a single-domain GCN based model.,other
+183,"Unlike conventional graph convolution methods such as GC-MC, MCCF [30] explores the underlying motivations of user– item interactions and dynamically integrates multicomponent information through hierarchical attention, enabling the capture of ﬁne-grained user preferences.",other
+1873,FGNN [27] re-thinks the sequence order of items to exploit users’ intrinsic intents using GNNs. GCE-GNN [38] aggregates item information from both item-level and session-level through graph convolution and self-attention mechanism.,other
+1023,"For Yoochoose, following [14, 16, 34], we filter out sessions of length 1 and items that appear less than 5 times.",other
+1832,"Following existing studies [16, 31, 32, 53], we use single training-test split (single-split) datasets (i.",other
+532,"…a matrix completion method based on graph convolutional autoencoders; • PinSage [36], a recommendation approach based on 2-hop GCN networks; • NGCF [31], a neural graph collaborative filter method; • FCF [1], a privacy-preserving recommendation approach based on federated collaborative filtering;…",other
+1044,"Despite their effectiveness, user behavior history is complex and the information from browser sessions is limited in many application scenarios; thus, prediction from sequential recommender systems remains a challenging problem [1,2].",other
+1813,"However, SR-GNN [53] is often vulnerable to overfitting [13] owing to extreme data sparsity.",contradiction
+842,"…Within a session, users generate explicit (e.g., ratings, reviews) and implicit (e.g., dwell time, clicks) feedback, and may exhibit sequential dependencies where one purchase influences subsequent choices (e.g., buying milk increases the likelihood of purchasing bread with the same brand [39]).",other
+549,"Last but not least, the fixed propagation pattern at different layers of existing multi-layer RS models (He et al., 2020; Wang et al., 2019; Berg et al., 2017) induces redundant information propagation between layers.",contradiction
+635,NGCF [24] models user-item bipartite graph to learn from collective user behaviors.,other
+1337,"Besides the point-wise classification loss [19], another intensively used loss in recommendation is the pairwise Bayesian Personalized Ranking (BPR) loss [32], which enforces the prediction of an observed interaction to be scored higher than its unobserved counterparts:",other
+1798,The GCN is utilized to help the agent sense the global structure of the proximity graph.,other
+1570,"DeepFM [29] concatenates the output of 2nd order feature interaction l FM and the output of MLP on the embedding matrix, denoted as l FI = concat ( l FM , MLP ( e )) .",other
+552,"One quick solution is adding self-loops (Kipf & Welling, 2017; Wang et al., 2019) to break the bipartite structure.",other
+1996,"fm, Xing and Reddit are widely used in the session-based recommendation research [1, 6, 18, 19, 29, 35].",other
+1349,"In particular, to enrich the representation of an item, FM and NFM exploit the embeddings of its connected entities, while CFKG and CKE only use that of its aligned entities.",other
+483,"Among various competitive methods, the recommender systems ( e . g ., NMTR, NGCF M , MBGCN) which consider multi-typed interactions, improve the performance as compared to other baselines.",other
+857,"Following previous studies [10, 39], we introduce edges between consecutive items based on their sequential relationships.",other
+1320,"which can be simply set as the last-layer representation [36, 48], concatenation [44], or summation [17] over the representations of all layers.",other
+1306,"Notably, the investigation extends the previous works by incorporating state-of-the-art classical collaborative filtering baselines such as UserkNN [56], ItemkNN [57], RP3𝛽 [49], and EASE𝑅 [61] to correctly position the graph CF methods in the recommender systems state-of-the-art.",extension
+362,The NGCF [35] explicitly encodes collaborative signals by performing embedding propagation through high-order connectivities.,other
+1918,"Current transformer-based models [12, 36] adopt self-attention mechanism, which has query, key, and value inputs from item embeddings and employs dot-product to learn their correlation scores.",other
+1256,"Not only they do achieve better accuracy than their predecessors, but they are also setting a new standard for modern recommender systems [20, 28, 47, 79].",other
+197,"By comparing multiple baseline models, we find that models based on self-supervised enhancement have better recommendation performance, which may be due sparse interaction data, and most pure GNN-based models (e.g., LightGCN [4], NGCF [3]) are prone to overfitting.",contradiction
+1346,"Empirically, FM, NFM, CFKG, CKE, GC-MC, KGAT , MCRec, and RippleNet cost around 700s, 780s, 800s, 420s, 500s, 560 s, 20 hours, and 2 hours for all testing instances on Amazon-Book dataset, respectively.",other
+1971,"fm, Xing and Reddit are widely used in the session-based recommendation research [1, 5, 16, 17, 26, 32].",other
+762,"On one hand, given the user-item interest graph, NGCF is proposed to directly encode the collaborative information of users by exploring the higher-order connectivity patterns with embedding propagation [35].",other
+793,"Following previous methods (Li et al. 2017a; Liu et al. 2018), we set the dimensionality of latent vectors d = 100 for both datasets.",other
+300,"Unlike existing GNN methods that blindly expand neighbor counts [17], [42], or receptive fields aware GNNs suitable only for homogeneous graphs, our approach effectively selects informative neighbors from sparse data in heterogeneous graph settings during message passing.",contradiction
+1041,"Nonetheless, there are other important methods such as GNNs (Graph Neural Networks) [3] 2:18 Y. Zhang et al. For more details on the experimental setup, please refer to Wu et al. [57].",other
+741,", the first layer enforces smoothness on users and items that have interactions, the second layer smooths users (items) that have overlap on interacted items (users), and higher-layers capture higher-order proximity [39].",other
+1696,"In general, conventional recommendation systems (Wu et al. 2019; Wang et al. 2020b,c,e,d) aim to recommend individual items to users, but in practice (e.g., E-commerce), items bundling is also a widely-adopted solution to increase the exposure of items that are seldom purchased in isolation.",other
+2024,"For example, SR-GNN [27] applied the gated GNN (GGNN) [11] to a directed session graph to learn item embeddings.",other
+546,"Previous approaches that learn a static model of users [10, 11, 22, 31, 34] or rely on long-term user behaviors [9, 17, 28, 30] are not well-suited for such scenarios and could lead to poor predictive power.",contradiction
+1818,"Recently, RecWalk [37, 38] leveraged spectral properties of nearly decoupled Markov chains and combined the item model with random walks.",other
+697,[47] and the collaborative filtering based graph model NGCF [42].,other
+1318,"The technique is inspired from the graph convolution networks (GCNs), which provide an effective end-to-end way to integrate multi-hop neighbors into node representation learning and achieve state-ofthe-art performance for recommendation [17, 36, 44, 48].",other
+1147,"We conduct extensive experiments on three benchmark datasets, and DGCF achieves significant improvements over several state-of-the-art models like NGCF [40], DisenGCN [25], and MacridVAE [26].",other
+1559,"Numerous classical approaches [56, 109] have demonstrated the signiicance and efectiveness of feature interactions in coping with high-cardinality feature attributes and large-scale datasets.",other
+116,"· This unified view encompasses both general graph encoders (e.g., GraphSAGE (Hamilton et al., 2017), GAT (Veliˇckovi´c et al., 2018)) and recommendation-specific variants (e.g., Light-GCN (He et al., 2020), NGCF (Wang et al., 2019)).",other
+1966,"Compared with the state-of-the-art personalized session-based approaches i.e. H-RNN and A-PGNN, our approach achieves a significant performance improvement on all metrics consistently.",other
+1031,[29] builds its item graph according to sessions.,other
+627,"The result of our MBGCN model outperforms NGCF-MB by 87.96% and 125.37% on Recall and NDCG, respectively.",other
+476,"However, most of existing GNNs mix neighbors information indistinguishably and fail to distinguish different characteristics of neighbor attributes nodes, leading to sub-optimal results [8, 12, 28].",contradiction
+906,"However, user’s behavior pattern tends to be more complicated than the time order [40, 64], which results in the sequential methods not being able to detect the user intent in the current session accurately.",contradiction
+1209,"Following [9, 33], we adopt the full-ranking strategy [42], which ranks all the candidate items that the user has not interacted with.",other
+1013,SR-GNN (Wu et al. 2019b) is the pioneering work which uses a gated graph neural network to model sessions as graph-structured data.,other
+777,"To predict user preference from the key (and widely available) source of user behavior data, much research effort has been devoted to collaborative filtering (CF) [12, 13, 32].",other
+30,"While inner product can force user and item embeddings of an observed interaction close to each other, its linearity makes it insufficient to reveal the complex and nonlinear relationships between users and items [14, 15].",other
+802,"For session-based recommendation, the work of (Hidasi et al. 2016a) proposes the recurrent neural network approach, and then extends to an architecture with parallel RNNs (Hidasi et al. 2016b) which can model sessions based on the clicks and features of the clicked items.",extension
+229,"Several GNN-based methods have been proposed to address various challenges in the ﬁeld of recommendation, such as NGCF [33] andLightGCN[34].",other
+444,"Recently, CF is further enhanced by the powerful graph neural networks (GNN) [9, 31], which models the interaction data as graphs (e.",other
+1896,"Recently, graph neural networks (GNNs) [42] have sparked heated discussions across multiple fields for its unprecedented effectiveness in solving graph-based tasks.",other
+1304,"Notably, the investigation extends the previous works by incorporating state-of-the-art classical collaborative filtering baselines such as UserkNN [56], ItemkNN [57], RP3β [49], and EASE [61] to correctly position the graph CF methods in the recommender systems state-of-the-art.",extension
+334,"In this regard, Graph Neural Networks (GNNs), renowned for their adeptness in handling graph-structured data, have secured a leading position in numerous recommendation scenarios with effective collaborative filtering [10,25,31].",other
+66,"Hence, node dropout is more effective than message dropout, which is consistent with the findings of prior effort [29].",other
+944,"Following [38, 41], we use P@K (Precision) and MRR@K (Mean Reciprocal Rank) to evaluate the recommendation results where K is 10 or 20.",other
+601,"According to [25], NGCF outperforms NCF on most item recommendation tasks.",other
+757,"GC-MC (Berg, Kipf, and Welling 2018) and NGCF (Wang et al. 2019) are speciﬁcally designed under the CF setting.",other
+1823,"Following existing studies [16, 31, 32, 53], we use single training-test split (single-split) datasets (i.",other
+831,"In the early stages, various schemes based on statistical learning or machine learning methods have been proposed for the SBR tasks [5, 8, 9].",other
+18,"raph (cf. Equation (3)), we make NGCF effective in exploiting the CF signal in high-order connectivities. Here we discuss existing recommendation methods that also employ graph convolution operations [29, 42, 43]. GC-MC [29] applies the graph convolution network (GCN) [18] on user-item graph, however it only employs one convolutional layer to exploit the direct connections between users and items. Hence it fa",contradiction
+265,The adjacency relations are represented as: The updating rule of GCNs [20] is formulated as follows: D is a diagonal node degree matrix.,other
+1848,"Inspired by its great success in the areas of graph and visual representation learning [11, 17], recent advances seek to harness SSL for improving recommendation [43, 44, 53, 57].",other
+1409,[29] are not directly comparable because they cannot scale to the Pinterest size data.,other
+1297,"In Table 7, we rank the six graph CF recommender systems under analysis according to the calculated Recall@20 and nDCG@20, for both the original datasets (i.e., Gowalla, Yelp 2018, and Amazon Book) and the novel datasets we introduced (i.e., Allrecipes and BookCrossing).",other
+1596,"For example, Factorization Machines (FM) [11, 89] implements the inner product of feature embeddings to explicitly model the 2 order feature interactions, and deine 1 order interaction as the binary vector xi .",other
+1885,Hidasi et al. [13] was the first that applied RNNs to model the whole session and introduced several modifications to vanilla RNNs such as a ranking loss function and session-parallel mini-batch training to generate more accurate recommendations.,other
+1803,"Recently, graph neural networks (GNNs) [1, 13, 40, 41, 50, 53, 54] have been used to effectively",other
+992,"In contrast, session-based recommendation has attracted increasing attention, with recent approaches showing promising performance in inferring user interests in these (often anonymous) short-term sessions [16, 19, 21, 23, 32].",other
+781,"Short/long-term memory models, like GRU4REC and NARM, use recurrent units to capture a user’s general interest while STAMP improves the short-term memory by utilizing the last-clicked item.",other
+425,"Considering there are many variants of GCNs with subtle differences, we take He et al. (2020) as an example.",other
+437,Wang et al. (2019) employ GCN to encode the collaborative signal in the form of high-order connectivities.,other
+1235,"Different from traditional CF methods, such as matrix factorization-based methods [13, 22] and auto-encoder-based methods [15, 25], graph-based collaborative filtering organize interaction data into an interaction graph and learn meaningful node representations from the graph structure information.",other
+24,"Modern recommender systems [5, 14, 33] parameterize users and items by vectorized representations and reconstruct user-item interaction data based on model parameters.",other
+1968,"Specifically, HG-GNN outperforms A-PGNN by 4.03% in terms of HR@5 and 5.72% in terms of MRR@5 on Reddit .",other
+1068,"Compared with SR-GNN, which further models session as graphs and is able to capture more implicit connections between user clicks, these methods neglect complex item transitional patterns.",contradiction
+240,NGCF [8] is built upon GNNs to explore higher-order collaborative signals and explicitly injects these signals into embedding representations.,other
+1864,"However, compared to GCE-GNN, 𝑆 2 -DHCN has lower results on Tmall and Diginetica, showing that self-discrimination based SSL method is not so successful in improving session-based recommendation performance, which is in line with our motivation.",contradiction
+1340,"res the model to carefully weight (or select) them. Several recent efforts have attempted to leverage the CKG structure for recommendation, which can be roughly categorized into two types, path-based [14, 25, 29, 33, 37, 39] and regularizationbased [5, 15, 33, 38]: •Path-based methods extract paths that carry the high-order information and feed them into predictive model. To handle the large number of paths between two n",other
+521,"However, it is also well-recognized that GCNs suffer from the over-smoothing problem [33], because the graph convolution operation is actually a special kind of graph Laplacian smoothing [33], making node representations become indistinguishable after multi-layer graph convolution [40].",other
+1564,"Most existing works [29, 34] collect and use as many features as possible, regardless of whether the features are helpful for recommendation or not.",contradiction
+887,"SR-GNN [6] is the ﬁrst model to utilize the Gated Graph Neural Networks to capture the complex item transition relationships in session-based recommendation scenarios, but it ignores the role of user in item transition relationship, and fails to use user historical session information to improve…",contradiction
+1678,"Speciﬁcally, in each step, we use the gated GNN (GGNN) [44] to update the representation of each node.",other
+361,• NGCF [35]: This approach employs a graph-based collaborative ﬁltering method that explicitly constructs a bipartite user-item graph to model high-order connectivity and obtains more expressive representations for users and items.,other
+378,"Prevailing CF models (Koren et al., 2009; Rendle, 2022; Koren et al., 2022; Wang et al., 2019b; He et al., 2021; Yu et al., 2024) typically convert the ID information of each item i into one-hot encodings ( e.g., pre-existing features x i ).",other
+248,"First, we have base methods GCN [10] and LightGCN [31] that other baseline methods are built upon.",other
+1317,This leads to the success of graph convolution networks (GCNs) for recommendation such as PinSage [48] and LightGCN [17].,other
+307,"• NGCF [39] User-social information is explicitly incorporated into graph enhanced collaborative filtering, which uses a message passing mechanism based on graph convolutions to capture collaborative signals.",other
+1565,Wide&Deep [15] and DeepFM [29] learn the low-order and high-order feature interactions by a shallow component and a deep component and state that both the low-order and high order feature interactions play a signiicant role in context-aware recommender systems.,other
+1392,Hamilton et al. (2017b) [19] and Bronstein et al. (2017) [6] provide comprehensive surveys of recent advancements.,other
+1512,Wu et al. (2019a); He et al. (2020) pointed out that the unnecessary components contribute negatively to the model performance.,other
+494,"While the baseline KGAT proposes to incorporate the auxiliary knowledge graph, it fails to explicitly differentiate type-speciﬁc interaction patterns.",contradiction
+1120,"In the real word, the user information of sessions is given in some cases, while it is not available in other cases (cf. Section 3.1) [43, 116, 138].",other
+1292,"By categorizing them into classic and graph CF we first observe that, with the only exception of UltraGCN, all graph-based recommendation systems are generally compared only against 1-2 classical CF solutions (MF [29, 55]- and/or VAE [38, 44]-based approaches in most cases).",other
+360,Reference [25] introduces a novel Neural Graph Collaborative Filtering Model called NGCF.,other
+54,"hich reconstructs historical interactions based on the embeddings. For example, matrix factorization (MF) directly embeds user/item ID as an vector and models user-item interaction with inner product [20]; collaborative deep learning extends the MF embedding function by integrating the deep representations learned from rich side information of items [30]; neural collaborative filtering models replace",other
+1646,"Instead, deep graph networks may easily fall into the trap of the over-smoothing problem [50], [51] where node features tend to converge to the same value.",other
+1641,NARM [10] and STAMP [11] are two milestones as they introduce well-designed attention mechanisms into this problem.,other
+947,SR-GNN [45] learns embeddings of session graphs by using a GNN to aggregate item embeddings but fails to model temporal collaborative signals.,contradiction
+787,"Please note that, as in (Li et al. 2017a), due to insufﬁcient memory to initialize FPMC, the performance on Yoochoose 1/4 is not reported.",other
+618,"To evaluate the quality of the recommendation results, we evaluate our method and baselines using Recall@20, which is a commonly used evaluation metric in top-k recommendation [22, 24].",other
+1852,• GCE-GNN [38]: constructs two types of session-educed graphs to capture local and global information in different levels.,other
+1149,Study on disentangling representations for recommendation is less conducted until recent MacridVAE [26].,other
+1547,"While L0-SIGN can only search for the 2 nd -order feature interaction, HIRS [99] extends it to arbitrary order of feature interaction by introducing the hyper-edge set {edдej } n1 j=1, where hyper-parameter n1 represents the number of intended search feature interaction.",extension
+316,"When GNNs are tailored for recommendation tasks, a new family of methods is developed [8], [9].",other
+403,Being able to learn high-order proximity is one of the key advantages of GCN.,other
+548,"To evaluate the model performance, several state-of-the-art methods are used for performance comparison, including BPR-MF (Rendle et al., 2009), GCN (Kipf & Welling, 2017), GCN with JKNet (GCN+JK) (Xu et al., 2018), GC-MC (Berg et al., 2017), NGCF (Wang et al., 2019) and LightGCN (He et al., 2020).",other
+1311,", HOP-Rec [83] and GRMF [53]), the vast majority of tested graph algorithms [14, 43, 64, 68, 87] are based upon the graph convolutional network architecture.",other
+520,"Among various recommendation approaches, the model-based collaborative filtering (CF) [5, 6, 14–16, 19, 20, 27, 32, 33] achieves a great success and becomes the mainstream recommendation technique.",other
+1042,"From the ﬁgure, it is obvious that our model consistently outperforms SR-GNN with two evaluation metrics, and as the amount of data increases, the values of two evaluation metrics are improved signiﬁcantly, which indicates that data sparsity negatively impacts performance, and using a hybrid of current and global interests and incorporating KB knowledge can improve the performance the model.",other
+714,"Firstly, we model the inter-sequence item correlation with two graphs, which are the user-item bipartite graph (Wang et al. 2019b) and the item-item co-occurrence graph (Li et al. 2019).",other
+1290,"To filter out noisy neighbors and uncover hidden preference patterns, a complementary research field emerged that focuses on learning importance weights through attention mechanisms, such as those employed in the graph attention network [69] (GAT).",other
+105,Graph Neural Networks (GNNs) have become a mainstream approach for collaborative ﬁltering by modeling user–item interactions as bipartite graphs and exploiting high-order connectivity to alleviate data sparsity (Van Den Berg et al. 2017; Wang et al. 2019).,other
+221,"The essence of equation (9) is based on the symmetric normalization element was used in most GCN model [7], [24], [34] and was calculated by (3).",other
+1623,9) FGNN [34] and GCE-GNN [35] are two contemporary approaches that also utilize global information in session-based recommendation but in different ways compared with G 3 SR. FGNN extends the session graph to include global information and GCE-GNN modiﬁes the model structure to introduce the information learned from the global graph.,extension
+1028,"However, the multi-layer graph layers can propagate large amounts of information between nodes, which easily brings bias, leading to overfitting problems with the graph neural networks as stated in [19, 34].",contradiction
+219,NGCF [7] is one of the most cutting-edge GCN models.,other
+1078,"Following [29, 30], we adoptHR@100 (H@100),MRR@100 (M@100), and NDCG@100 (N@100) to evaluate the recommendation performance of all models after obtaining their recommendation lists.",other
+1667,• GRU4REC [9] is a deep learning model based on RNN.,other
+725,Adding the identity matrix is equivalent to adding selfloops on the graphs which will influence the performance of GCN significantly [26].,other
+114,"Neural Graph Collaborative Filtering (NGCF) [7] uses GCNs to model complex user-item interactions with nonlinear graph propagation, but it can be computationally demanding.",contradiction
+134,"The most plausible explanation is that the “single” attention treatment in KGAT is not sufﬁcientlyexpressivewhenrelations carrygen-uinely different semantics, so it cannot calibrate propagation appropriately across USER_LIKES versus metadata-derived edges.",contradiction
+768,"Much eﬀort has been devoted to the traditional collaborative ﬁltering (CF) [2], which however suﬀers from the sparsity of user-item interactions and the cold start problem [3].",contradiction
+1939,", FPMC [36], GRU4Rec [9], Caser [38], and SR-GNN [46], for comprehensive study.",other
+1433,"(1)With the increasing of the number of layers, the embeddings will be over-smoothed [27].",other
+126,"We also report MR-GAT in standalone mode (i.e., without downstream fusion), which isolates the effect of relation-speciﬁc attention and allows a cleaner comparison against KGAT’s uniﬁed attention scheme.",other
+625,• NGCF-OB[37] NGCF is the state-of-the-art graph neural network model which has some special design to fit graph neural network into recommender system.,other
+1207,"For example, SGL [33] devise random data argumentation operator and construct the contrastive objective to improve the accuracy and robustness of GCNs for recommendation.",other
+973,"However, since SR-GNN ignores the temporal sequential signals when modelling POI transition patterns, it is inferior to our method on both datasets.",contradiction
+1882,"Afterwards, deep learning exhibited overwhelming advantage of modeling sequential data[56], and recurrent neural networks (RNNs) became the dominant paradigm in this line of research [12, 13].",other
+1981,"GCE-GNN outperforms SR-GNN on both datasets, showing the importance of global context information for the session-based recommendation.",other
+2015,"We propose a heterogeneous graph neural network (HGNN) on the directed heterogeneous global graph G = (V, E) to encode the user and item representations, inspired by [6, 20].",extension
+121,"Building on this, NGCF [31] extends traditional collaborative ﬁltering by incorporating message-passing mechanisms, enabling the model to aggregate user–item interactions across multiple hops.",extension
+914,"Most recently, SR-GNN [12] adopts graph neural networks to model complex transitions between items and becomes the new state-of-the-art.",other
+1081,",q |Q |], we adopt a similar way to construct training example as [13, 29].",other
+1529,"However, since graph convolution is time-consuming for large graphs, Kipf and Welling (2017) simplified it by fixing the kernel into a 1-order polynomial, thus GCNs lose the ability of extracting features and only propagate embeddings through the graph.",contradiction
+786,"Similar to STAMP, on Yoochoose, NARM achieves good performance on the short group, but the performance drops quickly with the length of the sessions increasing, which is partially because RNN models have difﬁculty in coping with long sequences.",other
+1227,", user or item similarity) cannot be explicitly utilized for enriching the graph information, which has been shown essentially useful in recommendation tasks [24, 27, 35].",other
+1137,"However, LightGCN [7] states that both feature transformation and nonlinear operation are unnecessary in the recommendation field and further proposes a lightweight GCN.",extension
+1654,This is because the original dataset is too large and directly training on this entire dataset yields poor results since behavioral patterns and user’s interests change over time [10].,other
+708,"However, the inter-sequence information is not fully exploited in these works: (i) For FPMC and Fossil, the order of the inter-sequence item correlation is limited by the latent method, which is the MF and similarity model respectively; (ii) For CSRM, the inter-sequence correlation is considered in an implicit way, a simple sessionlevel nearest neighbor-based approach.",contradiction
+421,"Since both user-item interactions and other side information have graph structure, graph neural network (GNN) algorithms [12, 28, 32] have been considered as promising solutions for user/item representation learning in recommendation systems [9, 14, 30, 31].",other
+68,"GC-MC [29] applies the graph convolution network (GCN) [18] on user-item graph, however it only employs one convolutional layer to exploit the direct connections between users and items.",contradiction
+1811,"Among the neural models, we compare to NARM [31], STAMP [32], SR-GNN [53], NISER+ [13], and GCE-GNN [52].",other
+1686,"Over the traditional recommendation methods, item-KNN achieves the best results, even better than the FPMC method which takes item transition into consideration.",other
+1036,"To solve that, SR-GNN [5] models the target session in the graph structure and utilizes Graph Neural Networks (GNN) to model complex transitions among item nodes on the graph.",other
+1270,"While some models aim to recognize meaningful user-item interactions at a higher level [67, 70], others disentangle relations on a finer-grained scale [73, 92].",other
+180,"For example, NGCF [7] reports that adding a fourth propagation layer (NGCF-4) results in overﬁtting on the Yelp2018 dataset, indicating that deeper architectures may introduce noise rather than beneﬁcial collaborative signals.",other
+1110,"Recently, an alternative approach, namely SR-GNN [14], has been proposed to model the sessions as graphstructured data using GNNs [7] rather than as sequences or sets, noting that users tend to make complex to-and-fro transitions across items within a session: for example, consider a session",other
+722,"Specifically, FM and DeepFM outperform BPR-MF, and NGCF outperforms GC-MC in most cases.",other
+423,"However, since graph convolution is time-consuming for large graphs, Kipf and Welling (2017) simplified it by fixing the kernel into a 1-order polynomial, thus GCNs lose the ability of extracting features and only propagate embeddings through the graph.",contradiction
+1131,"Many studies have demonstrated that the GCN-based embedding encoding process [15] can fully utilize the rich collaborative relationships on the user-item interaction graph G [9, 34].",other
+242,"Recently, recommender systems based on graph neural networks ( GNNs ) have gained momentum [19, 28, 30, 70, 71].",other
+33,"Modern recommender systems [5, 14, 33] parameterize users and items by vectorized representations and reconstruct user-item interaction data based on model parameters.",other
+308,"…[37] Cold start Deep learning High computational cost and overfitting [4, 38] Sparsity Deep learning High computational cost and overfitting [34, 36] Sparsity and cold start Graph Neural Networks (GNNs) scalability, complexity, over-smoothing [17] Scalability Parallel processing Hardware…",other
+284,"The evaluation procedure is similar to that adopted by Wang et al. [70], the data splitting is performed with user-wise random holdout as 72% training, 8% validation and 20% test for all the datasets.",other
+926,"However, SR-GNN [53] is often vulnerable to overfitting [13] owing to extreme data sparsity.",contradiction
+815,"Even so, S-POP still outperforms its opponents such as POP, BPR-MF, and FPMC, demonstrating the importance of session contextual information.",other
+449,", the user-item interaction graph) and then applies GNN to learn effective node representations [9, 31] for recommendation, called graph collaborative filtering.",other
+490,"Particularly, L integrates the pairwise BPR loss, which is widely adopted in recommendation tasks (Wang et al. 2019c), with the mutual information maximization paradigm as: the pairwise training data is denoted as O = { ( u, j + , j − ) | ( u, j + ) ∈ R + , ( u, j − ) ∈ R − } ( R + , R − denotes…",other
+710,"ISSR outperforms FPMC, Fossil and CSRM, the reasons are as follows: (1) for FPMC and Fossil, ISSR captures highorder inter-sequence item correlation from the two graph neural networks with multiple hops, whereas, FPMC and Fossil only capture low-order inter-sequence item correlation with MF and similarity based model; In addition, FPMC and Fossil both utilize Markov Chains to model the intrasequence item sequential correlation, which is proven to be inferior to deep neural network based model (Hidasi et al. 2016; Tang and Wang 2018; Kang and McAuley 2018); (2) for CSRM, it captures inter-sequence correlation with a simple session-level nearest neighbor-based approach instead of the fine-grained item-level correlation we addressed in ISSR.",other
+498,"The development of the graph neural networks [Wang et al. , 2019b; Wang et al. , 2019c] has attracted a lot of attention to exploring graph-based solutions for recommender systems [Guo et al. , 2021; Wang et al. , 2021].",other
+837,[52] NISER+ Representation normalization Reduces popularity bias through representation normalization.,other
+1377,"As we can see, KGAT achieves comparable computation complexity to SL models (FM and NFM) and regularization-based methods (CFKG and CKE), being much efficient that path-based methods (MCRec and RippleNet).",other
+440,"[57] exploit the user-item graph structure by propagating embeddings, which leads to the expressive modeling of high-order connectivity.",other
+1617,"On the other hand, G 3 SR achieves 72.61 in P@20 with merely 1/64 training data, even higher than the performance of all other models trained on 1/4 training data, including the two contemporary approaches FGNN and GCE-GNN.",other
+1476,"Based on this technology, some methods effectively learn representations by aggregating different types of neighboring information in heterogeneous information network, such as HERec [27], MCRec [28], MEIRec [29], and ieHGCN [30].",other
+774,• NGCF [41].,other
+104,"User–item graphs in recommendation systems are typically extremely sparse, with implicit feedback and highly imbalanced degree distributions (Wang et al. 2019; He et al. 2020).",other
+799,"A scalable approach (Kipf and Welling 2016) chooses the convolutional architecture via a localized approximation of spectral graph convolutions, which is an efficient variant and can operate on graphs directly as well.",other
+1413,"For example, a recent trend is to exploit auxiliary information such as item knowledge graph [38], social network [41] and multimedia content [44] for recommendation, where GCNs have set up the new state-of-the-art.",other
+1673,"Hidasi et al. ﬁrst deﬁne the session-based recommendation problem which aims to recommend the next item based on an anonymous session and they propose the GRU4Rec model [9] based on RNNs. Based on GRU4Rec, Tan et al. further enhance the performance by employing a few useful techniques such as data augmentation and knowledge distillation [27].",other
+969,"One major advantage of SGRec against existing GNNbased sequential recommenders [Wu et al., 2019; Qiu et al., 2019] is its capability of considering the heterogeneous edge information, i.",other
+1216,"(2) For the self-supervised method, SGL [33] consistently outperforms other supervised methods on five datasets, which shows the effectiveness of contrastive learning for improving the recommendation performance.",other
+473,"Since LightGCN is a widely acknowledged SOTA baseline reported in many recent papers [29, 44], we do not compare SEPT with other weak baselines such as NGCF [28], GCMC [2], and BPR [24].",other
+404,"To address the two difﬁculties of incorporating price which are unstated price awareness and category-dependent inﬂuence, we propose a GCN-based method named PUP and adopt a two-branch structure which is speciﬁcally designed to disentangle the global and local effect of the price awareness.",other
+1729,"In the past, we have published a survey on explainable recommender models [Zhang, 2018], but it aims to summarize this field in a general sense.",other
+1454,"g with neural networks. BeyondmerelyusingIDinformation,anothertypeofCFmethods considers historical items as the pre-existing features of a user, towards better user representations. For example, FISM [21] and SVD++ [25] use the weighted average of the ID embeddings of historical items as the target user’s embedding. Recently, researchers realize that historical items have different contributions to sh",other
+961,"Given a sequence of items clicked by an anonymous user within one visit, the goal is to predict the next item that this user would click within the same visit [15–17].",other

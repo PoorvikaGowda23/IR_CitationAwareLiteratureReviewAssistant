@@ -1,0 +1,43 @@
+{
+  "macro_f1": 0.704804,
+  "per_class": {
+    "method": {
+      "precision": 0.864198,
+      "recall": 0.736842,
+      "f1-score": 0.795455,
+      "support": 95
+    },
+    "background": {
+      "precision": 0.780488,
+      "recall": 0.785276,
+      "f1-score": 0.782875,
+      "support": 163
+    },
+    "result": {
+      "precision": 0.472727,
+      "recall": 0.619048,
+      "f1-score": 0.536082,
+      "support": 42
+    }
+  },
+  "confusion_matrix": [
+    [
+      70,
+      20,
+      5
+    ],
+    [
+      11,
+      128,
+      24
+    ],
+    [
+      0,
+      16,
+      26
+    ]
+  ],
+  "dataset": "allenai/scicite",
+  "model": "openai/gpt-oss-120b",
+  "n_samples": 300
+}

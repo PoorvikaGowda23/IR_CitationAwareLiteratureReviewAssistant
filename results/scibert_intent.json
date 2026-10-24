@@ -1,47 +1,47 @@
 {
-    "macro_f1": 0.833107,
-    "per_class": {
-        "background": {
-            "precision": 0.867003,
-            "recall": 0.852649,
-            "f1-score": 0.859766,
-            "support": 604
-        },
-        "method": {
-            "precision": 0.930796,
-            "recall": 0.810241,
-            "f1-score": 0.866345,
-            "support": 996
-        },
-        "result": {
-            "precision": 0.638191,
-            "recall": 0.980695,
-            "f1-score": 0.773212,
-            "support": 259
-        }
+  "macro_f1": 0.833107,
+  "per_class": {
+    "background": {
+      "precision": 0.930796,
+      "recall": 0.810241,
+      "f1-score": 0.866345,
+      "support": 996
     },
-    "confusion_matrix": [
-        [
-            515,
-            56,
-            33
-        ],
-        [
-            78,
-            807,
-            111
-        ],
-        [
-            1,
-            4,
-            254
-        ]
+    "method": {
+      "precision": 0.867003,
+      "recall": 0.852649,
+      "f1-score": 0.859766,
+      "support": 604
+    },
+    "result": {
+      "precision": 0.638191,
+      "recall": 0.980695,
+      "f1-score": 0.773212,
+      "support": 259
+    }
+  },
+  "confusion_matrix": [
+    [
+      515,
+      56,
+      33
     ],
-    "checkpoint_dir": "scibert_intent",
-    "dataset": "allenai/scicite",
-    "model": "allenai/scibert_scivocab_uncased",
-    "epochs": 3,
-    "lr": 2e-05,
-    "batch_size": 16,
-    "max_len": 128
+    [
+      78,
+      807,
+      111
+    ],
+    [
+      1,
+      4,
+      254
+    ]
+  ],
+  "checkpoint_dir": "scibert_intent",
+  "dataset": "allenai/scicite",
+  "model": "allenai/scibert_scivocab_uncased",
+  "epochs": 3,
+  "lr": 2e-05,
+  "batch_size": 16,
+  "max_len": 128
 }
