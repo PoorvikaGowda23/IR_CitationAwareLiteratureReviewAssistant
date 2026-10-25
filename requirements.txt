@@ -16,4 +16,6 @@ matplotlib
 joblib
 pytest
 streamlit
+pyvis
 groq
+plotly
