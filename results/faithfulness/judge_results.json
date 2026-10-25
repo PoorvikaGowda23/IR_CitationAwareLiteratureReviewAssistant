@@ -1,0 +1,212 @@
+{
+  "metrics": {
+    "baseline": {
+      "faithfulness_rate": 0.125,
+      "lenient_rate": 0.75,
+      "n_supported": 1,
+      "n_partial": 5,
+      "n_unsupported": 2,
+      "n_total": 8
+    },
+    "citation_aware": {
+      "faithfulness_rate": 0.2222,
+      "lenient_rate": 0.5556,
+      "n_supported": 2,
+      "n_partial": 3,
+      "n_unsupported": 4,
+      "n_total": 9
+    }
+  },
+  "labelled_claims": [
+    {
+      "claim_id": 9,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Comprehensive overviews also map the landscape of GNN applications across personalized recommendation tasks and propose future research directions to address emerging data modalities [S2:a669fc2d44fe5c49116a603f10d04a353468e190].",
+      "paper_ids": [
+        "a669fc2d44fe5c49116a603f10d04a353468e190"
+      ],
+      "primary_pid": "a669fc2d44fe5c49116a603f10d04a353468e190",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 12,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Graph Neural Networks have become a central paradigm for modern recommender systems, offering the ability to capture complex user\u2011item interaction patterns beyond traditional matrix factorization [S2:f97aee2318d91d83672ce248c23f6d8ecc03bb8c].",
+      "paper_ids": [
+        "f97aee2318d91d83672ce248c23f6d8ecc03bb8c"
+      ],
+      "primary_pid": "f97aee2318d91d83672ce248c23f6d8ecc03bb8c",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 5,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Broad surveys further contextualize these advances, categorizing GNN\u2011based recommenders into knowledge\u2011aware, heterogeneous, sequential, and collaborative\u2011filtering families, and outlining open challenges such as scalability, cold\u2011start mitigation, and integration of side information\u202f[S2:a669fc2d44fe5c49116a603f10d04a353468e190][S2:1be97c1d9ace0363f8f612ca1be3d4fb33e177bb][S2:f1caab91c000da3d6e8aa9800527ab0fae41c4e1].",
+      "paper_ids": [
+        "a669fc2d44fe5c49116a603f10d04a353468e190",
+        "1be97c1d9ace0363f8f612ca1be3d4fb33e177bb",
+        "f1caab91c000da3d6e8aa9800527ab0fae41c4e1"
+      ],
+      "primary_pid": "a669fc2d44fe5c49116a603f10d04a353468e190",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 1,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Recognizing the diversity of design choices, a systematic profiling of the GNN\u2011CF design space was conducted to map the impact of dimensions such as aggregation functions, depth, and regularization\u202f[S2:a2a42052eb8c0dd5ee339877b37f135fdfea00bd].",
+      "paper_ids": [
+        "a2a42052eb8c0dd5ee339877b37f135fdfea00bd"
+      ],
+      "primary_pid": "a2a42052eb8c0dd5ee339877b37f135fdfea00bd",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 15,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Building on this foundation, a subsequent method advocated for natural representation of user preferences by explicitly modeling higher\u2011order connectivity in the user\u2011item graph, further enhancing recommendation relevance [S2:69d4dec11c850e2266d7f5b23b4f61ff2de72ffb].",
+      "paper_ids": [
+        "69d4dec11c850e2266d7f5b23b4f61ff2de72ffb"
+      ],
+      "primary_pid": "69d4dec11c850e2266d7f5b23b4f61ff2de72ffb",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 2,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "A recent GNN model that explicitly models user\u2011preference structures outperformed matrix factorization and memory\u2011based CF on the MovieLens\u2011100k benchmark, illustrating how graph\u2011driven representations capture nuanced relational patterns missed by shallow methods\u202f[S2:69d4dec11c850e2266d7f5b23b4f61ff2de72ffb].",
+      "paper_ids": [
+        "69d4dec11c850e2266d7f5b23b4f61ff2de72ffb"
+      ],
+      "primary_pid": "69d4dec11c850e2266d7f5b23b4f61ff2de72ffb",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 4,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "LightGCN revealed that the two canonical GCN operations\u2014feature transformation and nonlinear activation\u2014contribute little to CF accuracy; a simplified model that retains only neighborhood aggregation already matches or exceeds more complex designs\u202f[S2:3024f58826a5bce3378af94f677e8fb90cbb49e0].",
+      "paper_ids": [
+        "3024f58826a5bce3378af94f677e8fb90cbb49e0"
+      ],
+      "primary_pid": "3024f58826a5bce3378af94f677e8fb90cbb49e0",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 16,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Recent surveys highlight the rapid expansion of GNN\u2011based recommendation techniques and identify key challenges such as scalability, interpretability, and integration with side information [S2:f1caab91c000da3d6e8aa9800527ab0fae41c4e1][S2:1be97c1d9ace0363f8f612ca1be3d4fb33e177bb].",
+      "paper_ids": [
+        "f1caab91c000da3d6e8aa9800527ab0fae41c4e1",
+        "1be97c1d9ace0363f8f612ca1be3d4fb33e177bb"
+      ],
+      "primary_pid": "f1caab91c000da3d6e8aa9800527ab0fae41c4e1",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 13,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Graph Convolutional Neural Networks were adapted for web\u2011scale recommender systems by introducing scalable aggregation mechanisms that reduce computational overhead while preserving recommendation accuracy [S2:6c96c2d4a3fbd572fef2d59cb856521ee1746789].",
+      "paper_ids": [
+        "6c96c2d4a3fbd572fef2d59cb856521ee1746789"
+      ],
+      "primary_pid": "6c96c2d4a3fbd572fef2d59cb856521ee1746789",
+      "llm_label": "supported"
+    },
+    {
+      "claim_id": 6,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Early efforts such as Neural Graph Collaborative Filtering (NGCF) demonstrated that propagating embeddings over the interaction graph yields richer collaborative signals than traditional matrix\u2011factorization approaches, which treat users and items independently of the graph structure\u202f[S2:c5f5f179d80a3bf9b4f29750283a87eaca42e91b].",
+      "paper_ids": [
+        "c5f5f179d80a3bf9b4f29750283a87eaca42e91b"
+      ],
+      "primary_pid": "c5f5f179d80a3bf9b4f29750283a87eaca42e91b",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 14,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "A linear residual graph convolutional network was proposed to revisit graph\u2011based collaborative filtering, demonstrating that residual connections can alleviate over\u2011smoothing and improve convergence speed [S2:c9e432023a240b22f385cf1cc76ab75fbe084ee7].",
+      "paper_ids": [
+        "c9e432023a240b22f385cf1cc76ab75fbe084ee7"
+      ],
+      "primary_pid": "c9e432023a240b22f385cf1cc76ab75fbe084ee7",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 10,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "LightGCN simplified traditional GCN architectures by removing nonlinearities and feature transformations, thereby revealing that neighborhood aggregation alone suffices for high\u2011quality recommendation embeddings [S2:3024f58826a5bce3378af94f677e8fb90cbb49e0].",
+      "paper_ids": [
+        "3024f58826a5bce3378af94f677e8fb90cbb49e0"
+      ],
+      "primary_pid": "3024f58826a5bce3378af94f677e8fb90cbb49e0",
+      "llm_label": "supported"
+    },
+    {
+      "claim_id": 11,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "A systematic profiling of the GNN design space for collaborative filtering identified critical hyperparameters and architectural choices that balance model complexity with performance across diverse datasets [S2:a2a42052eb8c0dd5ee339877b37f135fdfea00bd].",
+      "paper_ids": [
+        "a2a42052eb8c0dd5ee339877b37f135fdfea00bd"
+      ],
+      "primary_pid": "a2a42052eb8c0dd5ee339877b37f135fdfea00bd",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 3,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Together, the literature demonstrates that GNNs not only enhance CF accuracy through higher\u2011order connectivity but also provide a flexible framework for incorporating heterogeneous signals, positioning them as a cornerstone of next\u2011generation recommender systems\u202f[S2:f97aee2318d91d83672ce248c23f6d8ecc03bb8c].",
+      "paper_ids": [
+        "f97aee2318d91d83672ce248c23f6d8ecc03bb8c"
+      ],
+      "primary_pid": "f97aee2318d91d83672ce248c23f6d8ecc03bb8c",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 8,
+      "system": "citation_aware",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Neural Graph Collaborative Filtering introduced a unified framework that jointly learns user and item embeddings through graph neural propagation, outperforming earlier matrix factorization baselines [S2:c5f5f179d80a3bf9b4f29750283a87eaca42e91b].",
+      "paper_ids": [
+        "c5f5f179d80a3bf9b4f29750283a87eaca42e91b"
+      ],
+      "primary_pid": "c5f5f179d80a3bf9b4f29750283a87eaca42e91b",
+      "llm_label": "unsupported"
+    },
+    {
+      "claim_id": 0,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "Complementary to this, a linear residual GCN was proposed to alleviate the training instability caused by deep non\u2011linear stacks, achieving competitive results while preserving interpretability\u202f[S2:c9e432023a240b22f385cf1cc76ab75fbe084ee7].",
+      "paper_ids": [
+        "c9e432023a240b22f385cf1cc76ab75fbe084ee7"
+      ],
+      "primary_pid": "c9e432023a240b22f385cf1cc76ab75fbe084ee7",
+      "llm_label": "partially_supported"
+    },
+    {
+      "claim_id": 7,
+      "system": "baseline",
+      "query": "Graph neural networks for collaborative filtering in recommender systems",
+      "sentence": "At the same time, large\u2011scale deployments (e.g., Pinterest) showed that graph convolutional networks can be engineered for web\u2011scale recommendation by combining random\u2011walk sampling with efficient graph convolutions, proving the practical viability of GNN\u2011based CF on billions of nodes\u202f[S2:6c96c2d4a3fbd572fef2d59cb856521ee1746789].",
+      "paper_ids": [
+        "6c96c2d4a3fbd572fef2d59cb856521ee1746789"
+      ],
+      "primary_pid": "6c96c2d4a3fbd572fef2d59cb856521ee1746789",
+      "llm_label": "supported"
+    }
+  ]
+}
