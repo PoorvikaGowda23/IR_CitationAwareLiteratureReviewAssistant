@@ -15,3 +15,5 @@ python-louvain
 matplotlib
 joblib
 pytest
+streamlit
+groq

@@ -123,7 +123,28 @@ def _save_cache(cache_dir: Path, key: str, response: str) -> None:
 
 # ── LLM call ──────────────────────────────────────────────────────────────────
 
+def _with_retry(fn, *, attempts: int = 6):
+    """Call fn(); on a Groq 429 / rate-limit error wait and retry."""
+    import re
+    import time
+    for attempt in range(attempts):
+        try:
+            return fn()
+        except Exception as exc:  # noqa: BLE001
+            msg = str(exc)
+            if attempt == attempts - 1 or not ("429" in msg or "rate limit" in msg.lower()):
+                raise
+            m = re.search(r"try again in (?:(\d+)m)?([\d.]+)s", msg)
+            wait = (int(m.group(1) or 0) * 60 + float(m.group(2)) + 1) if m else 15 * (attempt + 1)
+            print(f"[groq] rate limited, sleeping {wait:.0f}s (attempt {attempt + 1}/{attempts})")
+            time.sleep(wait)
+
+
 def _call_groq(prompt: str, model: str, api_key: str) -> str:
+    return _with_retry(lambda: _call_groq_once(prompt, model, api_key))
+
+
+def _call_groq_once(prompt: str, model: str, api_key: str) -> str:
     """Call the Groq Chat Completions API and return the assistant text.
 
     Uses the groq Python SDK if available; falls back to raw requests.
@@ -251,6 +272,7 @@ def _load_papers_lookup(
                 "title":    str(row.get("title", "")),
                 "year":     row.get("year", None),
                 "abstract": str(row.get("abstract", "")),
+                "tldr":     str(row.get("tldr", "") or ""),
             }
         _PAPERS_DF_CACHE[key] = lookup
     return _PAPERS_DF_CACHE[key]
@@ -267,6 +289,7 @@ def generate_review(
     cache_dir: Path | str = CACHE_DIR,
     papers_path: Path | str = config.DATA_DIR / "papers.parquet",
     verbose: bool = False,
+    use_cache: bool = True,
 ) -> dict[str, Any]:
     """Generate a baseline literature review from a ranked list of papers.
 
@@ -281,6 +304,7 @@ def generate_review(
         cache_dir:   Directory for caching LLM responses.
         papers_path: Path to papers.parquet for title/year/abstract metadata.
         verbose:     If True, print progress messages to stdout.
+        use_cache:   If False, skip the disk cache (no read, no write).
 
     Returns:
         dict with keys:
@@ -331,7 +355,7 @@ def generate_review(
 
     # Cache lookup
     cache_key = _cache_key(prompt)
-    cached_text = _load_cache(cache_dir, cache_key)
+    cached_text = _load_cache(cache_dir, cache_key) if use_cache else None
     from_cache = cached_text is not None
 
     if from_cache:
@@ -345,12 +369,13 @@ def generate_review(
                 f"(model={model}, papers={len(papers_for_prompt)})…"
             )
         review_text = _call_groq(prompt, model=model, api_key=api_key)
-        _save_cache(cache_dir, cache_key, review_text)
-        if verbose:
-            print(
-                f"[generate_baseline] Cached -> "
-                f"{cache_dir / (cache_key + '.json')}"
-            )
+        if use_cache:
+            _save_cache(cache_dir, cache_key, review_text)
+            if verbose:
+                print(
+                    f"[generate_baseline] Cached -> "
+                    f"{cache_dir / (cache_key + '.json')}"
+                )
 
     # Post-process
     claims, n_invalid = _extract_claims(review_text, ranked_ids_set)
@@ -422,14 +447,12 @@ def main() -> None:
         print("No results returned by retrieve(). Cannot generate a review.", file=sys.stderr)
         sys.exit(1)
 
-    effective_cache = Path("/dev/null") if args.no_cache else CACHE_DIR
-
     result = generate_review(
         args.query,
         ranked,
         k=args.k,
         model=args.model,
-        cache_dir=effective_cache if not args.no_cache else CACHE_DIR,
+        use_cache=not args.no_cache,
         verbose=True,
     )
 

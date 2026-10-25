@@ -43,5 +43,10 @@
   "epochs": 3,
   "lr": 2e-05,
   "batch_size": 16,
-  "max_len": 128
+  "max_len": 128,
+  "confusion_matrix_labels": [
+    "method",
+    "background",
+    "result"
+  ]
 }

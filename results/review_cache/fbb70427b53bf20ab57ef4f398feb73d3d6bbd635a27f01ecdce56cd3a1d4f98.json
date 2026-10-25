@@ -1,0 +1,3 @@
+{
+  "response": "Graph neural networks have emerged as a versatile tool for modeling relational data in modern recommender systems [S2:f97aee2318d91d83672ce248c23f6d8ecc03bb8c] . Recent surveys highlight that GNNs enable the integration of heterogeneous signals such as user‑item interactions, social links, and content features to alleviate information overload [S2:1be97c1d9ace0363f8f612ca1be3d4fb33e177bb][S2:a669fc2d44fe5c49116a603f10d04a353468e190] .  \n\nExploiting auxiliary information through knowledge graphs has become a prominent trend that leverages graph convolutional networks to achieve state‑of‑the‑art recommendation performance [S2:371c799bde8b162e7f8fa2b2a0a8cfb29765f89f] . Graph Convolutional Neural Networks for Web‑Scale Recommender Systems"
+}

@@ -57,7 +57,7 @@ def load_scicite() -> tuple[list[str], list[int], list[str], list[int]]:
 
     intent_classifier.load_scicite() needs the dataset loading script, which the
     installed `datasets` version no longer supports; the Parquet branch has the
-    same data and the same label ids (0=background, 1=method, 2=result).
+    same data and the same label ids (0=method, 1=background, 2=result).
 
     Returns:
         (train_texts, train_labels, test_texts, test_labels)

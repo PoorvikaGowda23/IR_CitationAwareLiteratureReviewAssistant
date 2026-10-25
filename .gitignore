@@ -20,3 +20,6 @@ venv/
 myenv/
 *.ipynb_checkpoints/
 .DS_Store
+
+data/extended_intent/
+.pytest_cache/

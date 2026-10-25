@@ -13,11 +13,20 @@ import networkx as nx
 import pytest
 
 from retrieval import (
+    _STAGE1_CACHE,
     compute_cocitation_with_anchors,
     compute_proximity_to_anchors,
     min_max_normalize,
     retrieve,
 )
+
+
+@pytest.fixture(autouse=True)
+def clear_stage1_cache():
+    """retrieve() memoizes stage-1 results per (query, k); keep tests isolated."""
+    _STAGE1_CACHE.clear()
+    yield
+    _STAGE1_CACHE.clear()
 
 
 def test_min_max_normalize():
@@ -141,16 +150,21 @@ def test_surface_contradictions(monkeypatch):
     assert results[1]["flags"] == []
     assert results[2]["flags"] == []
 
-    # Surfaced papers placed at rank 4 and 5
+    # Surfaced papers placed at rank 4 and 5, in re-ranked order of the papers they
+    # contradict. p2 outranks p1 (its in-edge from c_in gives it a co-citation
+    # count with itself as an anchor), so p2's contradiction is surfaced first.
     contra_items = results[3:]
     assert len(contra_items) == 2
     assert contra_items[0]["rank"] == 4
-    assert contra_items[0]["paper_id"] == "c_out"
-    assert contra_items[0]["flags"] == ["contradiction", "p1"]
+    assert contra_items[0]["paper_id"] == "c_in"
+    assert contra_items[0]["flags"] == ["contradiction", "p2"]
 
     assert contra_items[1]["rank"] == 5
-    assert contra_items[1]["paper_id"] == "c_in"
-    assert contra_items[1]["flags"] == ["contradiction", "p2"]
+    assert contra_items[1]["paper_id"] == "c_out"
+    assert contra_items[1]["flags"] == ["contradiction", "p1"]
+
+    # Low-confidence edge (p3 -> c_low, conf 0.40) must not be surfaced
+    assert "c_low" not in {r["paper_id"] for r in results}
 
     # 2. With surface_contradictions=False
     results_no_contra = retrieve("fake query", k=3, graph=G, surface_contradictions=False)

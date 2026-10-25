@@ -52,6 +52,7 @@ JUDGE_RESULTS_JSON: Path = FAITHFULNESS_DIR / "judge_results.json"
 
 # ── Shared LLM constants (must match generate_baseline for fair comparison) ────
 from generate_baseline import (
+    _with_retry,
     DEFAULT_GROQ_MODEL,
     GROQ_API_KEY_ENV,
     _call_groq,
@@ -68,6 +69,7 @@ LABEL_SUPPORTED  = "supported"
 LABEL_PARTIAL    = "partially_supported"
 LABEL_UNSUPPORTED = "unsupported"
 VALID_LABELS = {LABEL_SUPPORTED, LABEL_PARTIAL, LABEL_UNSUPPORTED}
+LABEL_ERROR = "error"   # judge output unparseable; excluded from rates
 
 
 # ── 1. sample_claims ──────────────────────────────────────────────────────────
@@ -296,26 +298,27 @@ def _judge_one_claim(
     import generate_baseline as _gb
 
     # Patch: _call_groq accepts the rubric via a custom wrapper
-    response_text = _call_groq_with_system(
-        system=rubric,
-        user=user_msg,
-        model=model,
-        api_key=api_key,
-    )
+    label = None
+    for _ in range(2):
+        response_text = _with_retry(lambda: _call_groq_with_system(
+            system=rubric,
+            user=user_msg,
+            model=model,
+            api_key=api_key,
+        ))
+        try:
+            label = json.loads(response_text.strip()).get("label")
+        except Exception:
+            # partially_supported / unsupported must be tested before supported (substring)
+            label = next((l for l in (LABEL_PARTIAL, LABEL_UNSUPPORTED, LABEL_SUPPORTED)
+                          if l in response_text), None)
+        if label in VALID_LABELS:
+            break
+        label = None
 
-    try:
-        label = json.loads(response_text.strip()).get("label", LABEL_UNSUPPORTED)
-    except Exception:
-        # Try to extract label from malformed JSON
-        for lbl in VALID_LABELS:
-            if lbl in response_text:
-                label = lbl
-                break
-        else:
-            label = LABEL_UNSUPPORTED
-
-    if label not in VALID_LABELS:
-        label = LABEL_UNSUPPORTED
+    if label is None:
+        # Unparseable even after a retry: report as an error, never cache it
+        return LABEL_ERROR
 
     _save_cache(cache_dir, key, json.dumps({"label": label}))
     return label
@@ -333,7 +336,8 @@ def _call_groq_with_system(system: str, user: str, model: str, api_key: str) -> 
                 {"role": "user",   "content": user},
             ],
             temperature=0,
-            max_tokens=64,   # judge output is tiny JSON
+            max_tokens=512,   # reasoning model: leave room for reasoning + JSON
+            reasoning_effort="low",
         )
         return str(completion.choices[0].message.content)
     except ImportError:
@@ -347,7 +351,8 @@ def _call_groq_with_system(system: str, user: str, model: str, api_key: str) -> 
                 {"role": "user",   "content": user},
             ],
             "temperature": 0,
-            "max_tokens": 64,
+            "max_tokens": 512,
+            "reasoning_effort": "low",
         }
         resp = requests.post(url, headers=headers, json=payload, timeout=60)
         if resp.status_code != 200:
@@ -437,8 +442,14 @@ def llm_judge(
     # Aggregate per system
     from collections import defaultdict
     sys_labels: dict[str, list[str]] = defaultdict(list)
+    n_errors: dict[str, int] = defaultdict(int)
     for item in labelled:
-        sys_labels[item["system"]].append(item["llm_label"])
+        if item["llm_label"] in VALID_LABELS:
+            sys_labels[item["system"]].append(item["llm_label"])
+        else:
+            n_errors[item["system"]] += 1
+    if n_errors:
+        print(f"[faithfulness] WARNING: judge errors (excluded from rates): {dict(n_errors)}")
 
     metrics: dict[str, dict[str, float]] = {}
     for sname, labels in sorted(sys_labels.items()):
@@ -455,6 +466,7 @@ def llm_judge(
             "n_partial":         n_partial,
             "n_unsupported":     n_unsupported,
             "n_total":           n_total,
+            "n_error":           n_errors.get(sname, 0),
         }
 
     # Save full labelled output
@@ -463,6 +475,14 @@ def llm_judge(
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump({"metrics": metrics, "labelled_claims": labelled}, f, indent=2)
     print(f"\n[faithfulness] Results saved -> {output_path}")
+
+    # Add llm_label to the blinded sheet (matched by claim_id) for later kappa
+    if JUDGING_CSV.exists():
+        import pandas as pd
+        sheet = pd.read_csv(JUDGING_CSV)
+        by_id = {c["claim_id"]: c["llm_label"] for c in labelled}
+        sheet["llm_label"] = sheet["claim_id"].map(by_id).fillna("")
+        sheet.to_csv(JUDGING_CSV, index=False)
 
     # Print summary table
     _print_metrics(metrics)
@@ -595,25 +615,29 @@ def load_judge_results(
 
 # ── CLI ───────────────────────────────────────────────────────────────────────
 
+DEMO_QUERY_IDS = ["s1_gcf", "s1_session", "s2_kg", "s2_contrastive", "s3_dynamic"]
+
+
 def _run_demo_sample() -> list[dict[str, Any]]:
     """Generate a demo sample from cached review outputs for the default query."""
     from generate_baseline import generate_review as gen_baseline
     from generate import generate_review as gen_intent
     from retrieval import retrieve
 
-    query = "Graph neural networks for collaborative filtering in recommender systems"
-    print(f"[faithfulness] Running retrieval for query: {query!r}")
-    ranked = retrieve(query, k=10, surface_contradictions=False)
+    import pandas as pd
+    qdf = pd.read_csv(config.DATA_DIR / "queries.csv").set_index("query_id")
+    queries = [qdf.loc[q, "query_text"] for q in DEMO_QUERY_IDS]
 
-    print("[faithfulness] Generating baseline review...")
-    out_baseline = gen_baseline(query, ranked, k=10)
-
-    print("[faithfulness] Generating citation-aware review...")
-    out_intent = gen_intent(query, ranked, k=10)
+    baseline_outs, intent_outs = [], []
+    for query in queries:
+        print(f"[faithfulness] Query: {query!r}")
+        ranked = retrieve(query, k=10, surface_contradictions=False)
+        baseline_outs.append(gen_baseline(query, ranked, k=10))
+        intent_outs.append(gen_intent(query, ranked, k=10))
 
     system_outputs = {
-        "baseline":       [out_baseline],
-        "citation_aware": [out_intent],
+        "baseline":       baseline_outs,
+        "citation_aware": intent_outs,
     }
     sampled = sample_claims(system_outputs, n=40)
     return sampled

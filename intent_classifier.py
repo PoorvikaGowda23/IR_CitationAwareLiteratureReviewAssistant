@@ -138,6 +138,7 @@ def eval_tfidf(vec, clf, test_texts, test_labels):
             for label in LABEL_NAMES
         },
         "confusion_matrix": cm.tolist(),
+        "confusion_matrix_labels": LABEL_NAMES,
         "model_path": str(MODEL_PATH),
         "dataset": "allenai/scicite",
         "vectoriser": "TfidfVectorizer(ngram_range=(1,2), max_features=50000, sublinear_tf=True)",
@@ -447,6 +448,7 @@ def eval_scibert(
             for label in LABEL_NAMES
         },
         "confusion_matrix": cm.tolist(),
+        "confusion_matrix_labels": LABEL_NAMES,
         "checkpoint_dir": str(checkpoint_dir),
         "dataset": "allenai/scicite",
         "model": SCIBERT_MODEL_ID,

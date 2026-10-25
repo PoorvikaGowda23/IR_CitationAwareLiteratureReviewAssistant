@@ -1,0 +1,3 @@
+{
+  "response": "The 2018 work models session sequences as graph‑structured data and demonstrates that graph neural networks can capture complex item transitions that are missed by conventional sequential methods [S2:0c7e1338a9c7914a3b9a5bdc42b457b3f272160e]. A 2021 extension incorporates temporal information into the graph neural architecture to improve next‑item prediction accuracy [S2:dc3874003319001f276ec752dd427ac338619bf4]. Another 2021 variant expands the graph model to handle multiple user behaviors within a session, thereby enriching the representation of item interactions [S2:3a0b49179ce8f3ed5fe0d104"
+}

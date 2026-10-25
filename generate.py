@@ -158,17 +158,85 @@ def _dominant_intra_edge(
     return best_intent, best_neighbour
 
 
+_EDGE_CONTEXT_CACHE: dict[str, dict[tuple[str, str], list[dict[str, Any]]]] = {}
+
+
+def _edge_intent(row: Any) -> str:
+    """Intent of one edges_pred row, using the same rule as graph_builder.build_graph."""
+    ext = row.get("ext_intent")
+    ext_conf = row.get("ext_confidence")
+    if ext in ("extension", "contradiction") and ext_conf == ext_conf and float(ext_conf) > 0.6:
+        return str(ext)
+    return str(row.get("predicted_intent", "background")).strip().lower()
+
+
+def _load_edge_contexts(
+    edges_path: Path = config.DATA_DIR / "edges_pred.parquet",
+) -> dict[tuple[str, str], list[dict[str, Any]]]:
+    """Load (citing_id, cited_id) -> citation-context rows from edges_pred.parquet.
+
+    Each row is {'sentence', 'intent', 'confidence'}. The key ("", cited_id) holds
+    every sentence citing that paper. Returns {} if the file is missing.
+    """
+    key = str(edges_path)
+    if key not in _EDGE_CONTEXT_CACHE:
+        contexts: dict[tuple[str, str], list[dict[str, Any]]] = defaultdict(list)
+        if Path(edges_path).exists():
+            import pandas as pd
+            df = pd.read_parquet(edges_path)
+            for row in df.to_dict("records"):
+                sentence = str(row.get("context_sentence") or "").strip()
+                if not sentence:
+                    continue
+                item = {
+                    "sentence":   sentence,
+                    "intent":     _edge_intent(row),
+                    "confidence": float(row.get("intent_confidence") or 0.0),
+                }
+                contexts[(str(row["citing_id"]), str(row["cited_id"]))].append(item)
+                contexts[("", str(row["cited_id"]))].append(item)   # all sentences citing this paper
+        _EDGE_CONTEXT_CACHE[key] = dict(contexts)
+    return _EDGE_CONTEXT_CACHE[key]
+
+
+def _pick_context(
+    pid: str,
+    neighbour: str,
+    intent: str,
+    edge_contexts: dict[tuple[str, str], list[dict[str, Any]]],
+) -> str:
+    """Return the best citation-context sentence for the pid<->neighbour edge, or ''.
+
+    Prefers a sentence whose intent equals `intent` (the strongest-edge intent),
+    then the highest classifier confidence. Only sentences that cite pid are used.
+    """
+    if neighbour:
+        # Only sentences written about pid (neighbour cites pid) describe pid itself
+        rows = edge_contexts.get((neighbour, pid), [])
+        if rows:
+            same_intent = [r for r in rows if r["intent"] == intent]
+            return max(same_intent or rows, key=lambda r: r["confidence"])["sentence"]
+    # No edge inside the retrieved set: use the best sentence from any paper citing pid
+    rows = edge_contexts.get(("", pid), [])
+    return max(rows, key=lambda r: r["confidence"])["sentence"] if rows else ""
+
+
 def _build_paper_records(
     ranked_ids: list[str],
     papers_lookup: dict[str, dict[str, Any]],
     G: nx.DiGraph,
+    edge_contexts: dict[tuple[str, str], list[dict[str, Any]]] | None = None,
 ) -> dict[str, dict[str, Any]]:
     """Build one structured record per paper.
 
     Record fields:
-      paper_id, year, tldr, context_sentence, intent, neighbour_id
+      paper_id, title, year, tldr, context, context_source, intent, neighbour
+    context is a real citation-context sentence from the strongest edge to another
+    retrieved paper when one exists (context_source='citation'); otherwise the TLDR
+    ('tldr') or the first 200 characters of the abstract ('abstract').
     """
     retrieved_set = set(ranked_ids)
+    edge_contexts = edge_contexts or {}
     records: dict[str, dict[str, Any]] = {}
 
     for pid in ranked_ids:
@@ -178,19 +246,27 @@ def _build_paper_records(
         title = str(meta.get("title", "") or "(no title)").strip()
         abstract = str(meta.get("abstract", "") or "").strip()
 
-        # Use TLDR as the primary context sentence; fall back to abstract[:200]
-        context = tldr if tldr else (abstract[:200] + "..." if len(abstract) > 200 else abstract)
-
         intent, neighbour = _dominant_intra_edge(pid, retrieved_set, G)
 
+        # Prefer a real citation context; fall back to TLDR, then abstract[:200]
+        context = _pick_context(pid, neighbour, intent, edge_contexts)
+        if context:
+            source = "citation"
+        elif tldr:
+            context, source = tldr, "tldr"
+        else:
+            context = abstract[:200] + "..." if len(abstract) > 200 else abstract
+            source = "abstract"
+
         records[pid] = {
-            "paper_id":   pid,
-            "title":      title,
-            "year":       year,
-            "tldr":       tldr,
-            "context":    context,
-            "intent":     intent,
-            "neighbour":  neighbour,
+            "paper_id":       pid,
+            "title":          title,
+            "year":           year,
+            "tldr":           tldr,
+            "context":        context,
+            "context_source": source,
+            "intent":         intent,
+            "neighbour":      neighbour,
         }
     return records
 
@@ -227,10 +303,12 @@ def _render_cluster_section(
         nbr = rec["neighbour"]
         nbr_note = f" (relative to [S2:{nbr}])" if nbr else ""
         ctx = rec["context"] or "(no summary available)"
+        # Label real citation contexts differently from paper summaries
+        ctx_label = "Citation context" if rec.get("context_source") == "citation" else "Summary"
         lines.append(
             f"  ID={pid}  ({rec['year']})  {rec['title']}\n"
             f"  Role: {role}{nbr_note}\n"
-            f"  Summary: {ctx}"
+            f"  {ctx_label}: {ctx}"
         )
     return "\n\n".join(lines)
 
@@ -289,7 +367,9 @@ def generate_review(
     cache_dir: Path | str = CACHE_DIR,
     papers_path: Path | str = config.DATA_DIR / "papers.parquet",
     graph_path: Path | str = config.DATA_DIR / "graph.gpickle",
+    edges_pred_path: Path | str = config.DATA_DIR / "edges_pred.parquet",
     verbose: bool = False,
+    use_cache: bool = True,
 ) -> dict[str, Any]:
     """Generate an intent-aware literature review from a ranked list of papers.
 
@@ -305,6 +385,7 @@ def generate_review(
         papers_path: Path to papers.parquet.
         graph_path:  Path to graph.gpickle (for community IDs and edge intents).
         verbose:     Print progress to stdout.
+        use_cache:   If False, skip the disk cache (no read, no write).
 
     Returns:
         dict with keys:
@@ -316,6 +397,9 @@ def generate_review(
           'paper_ids_used' -- Ordered list of paper IDs passed to the LLM.
           'from_cache'     -- True if the response came from disk cache.
           'clusters'       -- dict mapping community_id -> list[paper_id].
+          'paper_records'  -- paper_id -> {title, year, tldr, context, context_source,
+                              intent, neighbour}; traces a claim's [S2:id] to its
+                              citation context and intent label.
 
     Raises:
         EnvironmentError:  If GROQ_API_KEY is not set.
@@ -359,14 +443,17 @@ def generate_review(
               + ", ".join(f"{cid}({len(pids)})" for cid, pids in clusters.items()))
 
     # ── Step 2: build structured records ─────────────────────────────────────
-    records = _build_paper_records(ranked_ids_ordered, papers_lookup, G)
+    records = _build_paper_records(
+        ranked_ids_ordered, papers_lookup, G,
+        edge_contexts=_load_edge_contexts(edges_pred_path),
+    )
 
     # ── Step 3: build intent-structured prompt ────────────────────────────────
     prompt = _build_intent_prompt(query, clusters, records)
 
     # ── Cache lookup ──────────────────────────────────────────────────────────
     cache_key = _cache_key(prompt)
-    cached_text = _load_cache(cache_dir, cache_key)
+    cached_text = _load_cache(cache_dir, cache_key) if use_cache else None
     from_cache = cached_text is not None
 
     if from_cache:
@@ -377,9 +464,10 @@ def generate_review(
         if verbose:
             print(f"[generate] Cache MISS -- calling Groq (model={model})...")
         review_text = _call_groq(prompt, model=model, api_key=api_key)
-        _save_cache(cache_dir, cache_key, review_text)
-        if verbose:
-            print(f"[generate] Cached -> {cache_dir / (cache_key + '.json')}")
+        if use_cache:
+            _save_cache(cache_dir, cache_key, review_text)
+            if verbose:
+                print(f"[generate] Cached -> {cache_dir / (cache_key + '.json')}")
 
     # ── Post-process ──────────────────────────────────────────────────────────
     claims, n_invalid = _extract_claims(review_text, ranked_ids_set)
@@ -399,6 +487,7 @@ def generate_review(
         "paper_ids_used":  ranked_ids_ordered,
         "from_cache":      from_cache,
         "clusters":        {str(k_): v for k_, v in clusters.items()},
+        "paper_records":   records,
     }
 
 
@@ -446,14 +535,12 @@ def main() -> None:
         print("No results returned by retrieve(). Cannot generate a review.", file=sys.stderr)
         sys.exit(1)
 
-    effective_cache = Path("/dev/null") if args.no_cache else CACHE_DIR
-
     result = generate_review(
         args.query,
         ranked,
         k=args.k,
         model=args.model,
-        cache_dir=effective_cache if not args.no_cache else CACHE_DIR,
+        use_cache=not args.no_cache,
         verbose=True,
     )
 
@@ -488,6 +575,11 @@ def main() -> None:
         if claim["paper_ids"]:
             print(f"[{i}] {claim['sentence']}")
             print(f"     -> cites: {claim['paper_ids']}")
+            for pid in claim["paper_ids"]:
+                rec = result["paper_records"].get(pid)
+                if rec:
+                    print(f"        [{pid[:8]}] intent={rec['intent']} "
+                          f"({rec['context_source']}): {rec['context'][:120]}")
 
 
 if __name__ == "__main__":

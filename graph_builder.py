@@ -114,8 +114,9 @@ def build_graph(
             if weight > G[citing_id][cited_id]["weight"]:
                 G[citing_id][cited_id]["weight"] = weight
                 G[citing_id][cited_id]["intent"] = intent
+                G[citing_id][cited_id]["confidence"] = ext_conf
         else:
-            G.add_edge(citing_id, cited_id, weight=weight, intent=intent)
+            G.add_edge(citing_id, cited_id, weight=weight, intent=intent, confidence=ext_conf)
 
     # 7. Assert that no survey paper is a node
     survey_nodes = set(G.nodes) & survey_ids
