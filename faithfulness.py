@@ -333,7 +333,7 @@ def _call_groq_with_system(system: str, user: str, model: str, api_key: str) -> 
                 {"role": "user",   "content": user},
             ],
             temperature=0,
-            max_tokens=64,   # judge output is tiny JSON
+            max_tokens=1024,  # reasoning models need headroom for thinking tokens before outputting JSON
         )
         return str(completion.choices[0].message.content)
     except ImportError:
@@ -347,12 +347,20 @@ def _call_groq_with_system(system: str, user: str, model: str, api_key: str) -> 
                 {"role": "user",   "content": user},
             ],
             "temperature": 0,
-            "max_tokens": 64,
+            "max_tokens": 1024,  # reasoning models need headroom for thinking tokens before outputting JSON
         }
-        resp = requests.post(url, headers=headers, json=payload, timeout=60)
-        if resp.status_code != 200:
-            raise RuntimeError(f"Groq API HTTP {resp.status_code}: {resp.text[:300]}")
-        return str(resp.json()["choices"][0]["message"]["content"])
+        import time
+        max_retries = 6
+        for attempt in range(max_retries):
+            resp = requests.post(url, headers=headers, json=payload, timeout=60)
+            if resp.status_code == 429:
+                wait_sec = 3.0 * (attempt + 1)
+                time.sleep(wait_sec)
+                continue
+            if resp.status_code != 200:
+                raise RuntimeError(f"Groq API HTTP {resp.status_code}: {resp.text[:300]}")
+            return str(resp.json()["choices"][0]["message"]["content"])
+        raise RuntimeError(f"Groq API HTTP 429: Rate limit exceeded after {max_retries} retries.")
 
 
 def llm_judge(
